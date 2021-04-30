@@ -3,7 +3,7 @@ import { Scene } from './scene';
 export class DingHao extends Scene{
     constructor() {
         super();
-        this.sceneName = 'dinghao'
+        this.scene_name = 'dinghao'
         this.judge_colors = ['dinghao'];
         this.colors = {
             dinghao: {

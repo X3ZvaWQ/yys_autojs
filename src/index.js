@@ -59,7 +59,7 @@ class Syy{
             setInterval(function(){
                 global.ws.send('sync/push', {
                     imei: device.getIMEI(),
-                    data: global.state
+                    data: state
                 });
             }, 30000);
         });

@@ -3,7 +3,7 @@ import { Scene } from './scene';
 export class Home extends Scene {
     constructor() {
         super();
-        this.sceneName = 'home';
+        this.scene_name = 'home';
         this.judge_colors = ['home_fold', 'home_spread'];
         this.colors = {
             "home_fold": {

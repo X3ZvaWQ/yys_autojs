@@ -3,7 +3,7 @@ import { Scene } from './scene';
 export class Award extends Scene {
     constructor() {
         super();
-        this.sceneName = 'login';
+        this.scene_name = 'login';
         this.judge_colors = ['award1', 'award2', 'award3'];
         this.colors = {
             "award1": {

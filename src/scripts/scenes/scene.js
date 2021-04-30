@@ -1,6 +1,6 @@
 export class Scene{
     constructor() {
-        this.sceneName = 'unknown';
+        this.scene_name = 'unknown';
         this.colors = {
             friend_list: {
                 region: [62, 910, 252, 169],
@@ -163,13 +163,15 @@ export class Scene{
 
     isCurrentScene() {
         if(this.judge_colors.length == 0) {
+            this.match_tag = null;
             return true;
         }
         for (let color of this.judge_colors) {
             if (this.findColors(color) != null) {
-                if(this.sceneName != state.temp.last_scene) {
-                    logger.verbose('当前界面：' + this.sceneName);
+                if(this.scene_name != state.temp.last_scene) {
+                    logger.verbose('当前界面：' + this.scene_name);
                 }
+                this.match_tag = color;
                 return true;
             }
         }

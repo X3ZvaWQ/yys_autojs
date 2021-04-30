@@ -3,7 +3,7 @@ import { Scene } from './scene';
 export class Sign extends Scene {
     constructor() {
         super();
-        this.sceneName = 'sign';
+        this.scene_name = 'sign';
         this.judge_colors = ['sign_in_confirm', 'sign_in_result'];
         this.colors = {
             "sign_in_confirm": {
@@ -29,11 +29,17 @@ export class Sign extends Scene {
     }
 
     execute() {
-        if (this.clickIfColorsExist('sign_in_confirm')) {
-            global.logger.info('签到：每日一签');
-            return;   
+        if(this.match_tag == 'sign_in_confirm') {
+            if (this.clickIfColorsExist('sign_in_confirm')) {
+                global.logger.info('签到：每日一签');
+                return;   
+            }
         }
-        this.clickButton('sign_exit');
-        return;
+        if(this.match_tag == 'sign_in_result') {
+            this.clickButton('sign_exit');
+            global.logger.info('签到：关闭签到界面');
+            return;
+        }
+        
     }
 }
