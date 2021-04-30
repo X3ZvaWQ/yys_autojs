@@ -1,11 +1,11 @@
 {
-    "name": "Example",
+    "name": "yys_auto_main",
     "mainScriptFile": "dist/app.js",
     "main": "dist/app.js",
     "launchConfig": {
         "hideLogs": true,
         "stableMode": true,
-        "splashText": "AUTO.PRO"
+        "splashText": "YYS_AUTO"
     },
     "ignore": [
         "build",
@@ -22,7 +22,7 @@
         "README.md",
         ".gitignore"
     ],
-    "packageName": "com.example.hello",
+    "packageName": "xyz.x3zvawq.syy",
     "versionName": "1.0.0",
     "versionCode": 1
 }

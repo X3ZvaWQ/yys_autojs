@@ -5,7 +5,7 @@
     "description": "",
     "scripts": {
         "start": "npx webpack --config webpack.config.js --watch --mode=development",
-        "build": "npx webpack --config webpack.config.js --mode=development"
+        "build": "npx webpack --config webpack.config.js --mode=production"
     },
     "author": "X3ZvaWQ",
     "license": "ISC",
@@ -13,6 +13,7 @@
         "@auto.pro/webpack-loader": "^8.12.5",
         "@auto.pro/webpack-plugin": "^8.13.1",
         "@babel/core": "^7.11.6",
+        "@babel/plugin-syntax-class-properties": "^7.12.13",
         "@babel/plugin-transform-modules-commonjs": "^7.10.4",
         "@babel/plugin-transform-runtime": "^7.11.5",
         "@babel/preset-env": "^7.11.5",

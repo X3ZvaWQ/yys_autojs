@@ -5,19 +5,8 @@ const AutoProWebpackPlugin = require('@auto.pro/webpack-plugin')
 const ProgressPlugin = require('progress-bar-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-
-const dictionary = []
-for (let i = 4096; i < 4096 + 2048; i++) {
-    dictionary.push(
-        i
-            .toString(2)
-            .replace(/1/g, "ν")
-            .replace(/0/g, "v")
-    )
-}
-
 const compilePlugin = new AutoProWebpackPlugin({
-    ui: ['app'],
+    ui: [],
     // encode: {
     //     key: ''
     // }
@@ -76,8 +65,6 @@ module.exports = (env, argv) => {
             new CleanWebpackPlugin(),
             new JavascriptObfuscator({
                 compact: true,
-                identifierNamesGenerator: "dictionary",
-                identifiersDictionary: dictionary,
                 target: "node",
                 transformObjectKeys: false,
                 stringArray: true,

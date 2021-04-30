@@ -403,7 +403,7 @@
 
 "@babel/plugin-syntax-class-properties@^7.12.13":
   version "7.12.13"
-  resolved "https://registry.npm.taobao.org/@babel/plugin-syntax-class-properties/download/@babel/plugin-syntax-class-properties-7.12.13.tgz?cache=0&sync_timestamp=1612314829085&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-syntax-class-properties%2Fdownload%2F%40babel%2Fplugin-syntax-class-properties-7.12.13.tgz#b5c987274c4a3a82b89714796931a6b53544ae10"
+  resolved "https://registry.nlark.com/@babel/plugin-syntax-class-properties/download/@babel/plugin-syntax-class-properties-7.12.13.tgz#b5c987274c4a3a82b89714796931a6b53544ae10"
   integrity sha1-tcmHJ0xKOoK4lxR5aTGmtTVErhA=
   dependencies:
     "@babel/helper-plugin-utils" "^7.12.13"
