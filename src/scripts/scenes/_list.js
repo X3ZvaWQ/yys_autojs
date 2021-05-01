@@ -6,6 +6,7 @@ import { Activity } from './activity';
 import { Award } from './award';
 import { Login } from './login';
 import { Digui } from './digui';
+import { TuPo } from './tupo';
 import { Fighting } from './fighting';
 import { Fought } from './fought';
 import { TanSuo } from './tansuo';
@@ -13,12 +14,15 @@ import { JieJie } from './jiejie';
 import { XianShi } from './xianshi';
 import { Disconnection } from './disconnection';
 import { Store } from './store';
+import { Map } from './map';
 
 const scenes = [
     new Award(),
     new Activity(),
     new Login(),
     new Digui(),
+    new TuPo(),
+    new Map(),
     new Fighting(),
     new Fought(),
     new JieJie(),

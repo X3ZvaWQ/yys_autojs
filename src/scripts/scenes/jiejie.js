@@ -253,7 +253,7 @@ export class JieJie extends Scene {
             let award_arr = [award.match(/体力\+(\d+)/), award.match(/勾玉\+(\d+)/)];
             if(global.state.jiejie.jiyang_try_times == 20) {
                 this.resetJiyangSelect()
-                continue;
+                return;
             }
             if(global.state.jiejie.jiyang_force >= 30) {
                 this.resetJiyangSelect()
@@ -262,27 +262,27 @@ export class JieJie extends Scene {
                 global.logger.info('寄养：没啥能选的了，直接第一个吧');
                 global.state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
-                continue;
+                return;
             }else if(global.state.jiejie.jiyang_try_times <= 20 && award_arr[0] != null && award_arr[0][1] >= 130
                 || global.state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= 100) {
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：发现体力结界卡, 尝试进入');
                 global.state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
-                continue;
+                return;
             }else if(global.state.jiejie.jiyang_try_times <= 20 && award_arr[1] != null && award_arr[1][1] >= 50
                 || global.state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= 30) {
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：发现勾玉结界卡, 尝试进入');
                 global.state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
-                continue;
+                return;
             }
             global.state.jiejie.jiyang_try_times += 1;
             global.automator.swipe(614+random(-100, 100), 530, 614+random(-100, 100), 380, random(1000, 1200));
             this.clickButton('jiejie_jiyang_select_first');
             sleep(400);
-            break;
+            return;
         }
     }
 }

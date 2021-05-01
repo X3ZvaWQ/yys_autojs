@@ -59,9 +59,9 @@ export class Store extends Scene {
                 state.global.last_get_free_blackegg = Date.now();
                 global.logger.info('免费黑蛋领了/已经领过了，退出商店');
                 this.clickButton('store_exit');
-                continue;
+                return;
             }
-            break;
+            return;
         }
     }
 }
