@@ -160,6 +160,11 @@ export class FengMo extends Scene {
                 "offset": [50, 50],
                 "desc": "退出封魔"
             },
+            "fighting_victory_confirm": {
+                "center": [951, 1040],
+                "offset": [200,30],
+                "desc": "战斗结束的时候点屏幕继续。"
+            },
         }
     }
 
@@ -218,15 +223,15 @@ export class FengMo extends Scene {
             }
             let opts = [
                 {
-                    opt: global.ocr.recognize(images.clip(now_img, 690, 413, 559, 64)),
+                    opt: global.ocr.recognize(images.clip(this.screenshot, 690, 413, 559, 64)),
                     point: { x: 973, y: 447 }
                 },
                 {
-                    opt: global.ocr.recognize(images.clip(now_img, 688, 547, 555, 66)),
+                    opt: global.ocr.recognize(images.clip(this.screenshot, 688, 547, 555, 66)),
                     point: { x: 973, y: 576 }
                 },
                 {
-                    opt: global.ocr.recognize(images.clip(now_img, 679, 671, 579, 73)),
+                    opt: global.ocr.recognize(images.clip(this.screenshot, 679, 671, 579, 73)),
                     point: { x: 973, y: 708 }
                 }
             ];
@@ -276,7 +281,7 @@ export class FengMo extends Scene {
                 global.logger.info('逢魔之时：逢魔，集结挑战');
                 this.clickButton('fengmo_boss_mass');
                 sleep(1200);
-                if (findColors('fengmo_boss_mass_confirm')) {
+                if (this.findColors('fengmo_boss_mass_confirm')) {
                     this.clickButton('fengmo_boss_mass_confirm_dontnotice');
                     sleep(1200);
                     this.clickButton('fengmo_boss_mass_confirm_yes');

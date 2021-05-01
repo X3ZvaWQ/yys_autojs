@@ -46,8 +46,8 @@ export class Fought extends Scene {
                     // 判断探索列表有没有这个关卡的任务
                     if (global.state.tansuo.setting.list[global.state.tansuo.level] != undefined) {
                         // 有任务的话就把击杀次数-1， 如果-1之后是0就删除这个任务
-                        global.state.tansuo.setting.global.state[global.state.tansuo.level] -= 1;
-                        global.logger.log('战斗胜利：探索结束，任务完成次数+1，剩余次数：' + now.tansuo.setting.list[now.tansuo.level]);
+                        global.state.tansuo.setting.list[global.state.tansuo.level] -= 1;
+                        global.logger.log('战斗胜利：探索结束，任务完成次数+1，剩余次数：' + global.state.tansuo.setting.list[global.state.tansuo.level]);
                         if (global.state.tansuo.setting.list[global.state.tansuo.level] == 0) {
                             delete global.state.tansuo.setting.list[global.state.tansuo.level];
                             global.logger.log('战斗胜利：关卡 ' + global.state.tansuo.level + ' 的探索任务结束');

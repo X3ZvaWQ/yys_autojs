@@ -128,10 +128,9 @@ export class Home extends Scene {
             global.logger.info('庭院：进入阴阳寮准备新一轮寄养');
             return;
         }
-        if (Object.keys(state.tansuo.setting.list) > 0
-            || this.timeTo('liaotu')) {
-            this.goToTansuo();
-            return;
+        if (Object.keys(state.tansuo.setting.list) > 0 || this.timeTo('liaotu')) {
+            global.logger.info('庭院：寮突冷却完毕/存在探索任务，前往地图');
+            this.goToTanSuo();
         }
     }
 }

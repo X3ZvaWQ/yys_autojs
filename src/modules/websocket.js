@@ -15,7 +15,7 @@ export class WebsocketClient {
                     global.ws.responses[message.response] = message.data;
                 }else if(Object.keys(global.ws.userListeners).length > 0){
                     for (let i in global.ws.userListeners) {
-                        global.ws.userListeners[i](webSocket, msg);
+                        global.ws.userListeners[i](webSocket, message);
                     }
                 }
             }

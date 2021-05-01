@@ -77,7 +77,7 @@ export class Friend extends Scene {
             global.logger.info('收到了好友的一个友情点');
             return;
         }
-        automator.swipe(random(379, 579), 778, random(379, 579), 478, random(1000, 2000));
+        automator.swipe([479, 778], [479, 478]);
         return;
     }
 }

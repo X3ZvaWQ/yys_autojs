@@ -84,23 +84,23 @@ export class Map extends Scene{
 
     tansuoScrollTo(to) {
         if (to == global.state.tansuo.last) return;
-        global.automator.swipe(1850, 968, 1850, 335, random(100, 200));
+        global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
-        global.automator.swipe(1850, 968, 1850, 335, random(100, 200));
+        global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
-        global.automator.swipe(1850, 968, 1850, 335, random(100, 200));
+        global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
         let from = global.state.tansuo.setting.max;
         while (from != to) {
             if (from > to) {
                 let step = from - to > 3 ? 3 : from - to;
-                global.automator.swipe(1871, 351, 1872, 351 + 134 * step, 600);
+                global.automator.swipe([1871, 351], [1872, 351 + 134 * step], [0,0], [0,0], 600);
                 sleep(random(1000, 1500));
                 from -= step;
             }
             if (from < to) {
                 let step = to - from;
-                global.automator.swipe(1871, 884 - 134 * step, 1872, 884, 300);
+                global.automator.swipe([1871, 884 - 134 * step], [1872, 884], [0,0], [0,0], 300);
                 sleep(random(1000, 1500));
                 from += step;
             }

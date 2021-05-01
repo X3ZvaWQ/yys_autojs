@@ -145,6 +145,11 @@ export class TuPo extends Scene {
                 "offset": [100, 30],
                 "desc": "结界突破，刷新"
             },
+            "fighting_victory_confirm": {
+                "center": [951, 1040],
+                "offset": [200,30],
+                "desc": "战斗结束的时候点屏幕继续。"
+            },
         }
     }
 
@@ -192,12 +197,12 @@ export class TuPo extends Scene {
             global.state.tupo.liao_fight_ed = false;
             //划到最上面，再次搜索;
             global.logger.info('寮突：翻到最后了，尝试从最前面开始找');
-            global.automator.swipe(random(1700, 1724), random(900, 930), random(1700, 1724), random(100, 120), random(700, 900));
+            global.automator.swipe([1712, 915], [1712, 12], [0, 0], [0, 0]);
             return false;
         } else {
             //往下翻点;
             global.logger.info('寮突：当前没有能打的了，尝试往下面翻翻');
-            global.automator.swipe(1617, 820, 1617, 280, random(1500, 1800));
+            global.automator.swipe([1617, 820], [1617, 380], [0, 0], [0, 0], random(1500, 1800));
             return false;
         };
     }
@@ -221,9 +226,10 @@ export class TuPo extends Scene {
     }
 
     getLiaoTuTimes() {
-        let img = images.clip(now_img, 409, 846, 66, 35);
+        let img = images.clip(this.screenshot, 409, 846, 66, 35);
         let liaotu_times = parseInt(global.ocr.recognize(img).replace(/(\d)\/6/, '$1'));
-        logger.info('剩余寮突次数：' + liaotu_times);
+        logger.verbose('剩余寮突次数：' + liaotu_times);
+        return liaotu_times;
     }
 
 

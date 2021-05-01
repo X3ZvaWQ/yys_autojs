@@ -132,9 +132,9 @@ export class TanSuo extends Scene {
             newPoint = this.findColors(newMultiColors);
             if (newPoint != null) {
                 this.clickPoint(newPoint);
-                now.tansuo.findCount = 0;
-                now.tansuo.fighting = 'normal';
-                now.global.fighting = 'tansuo';
+                global.state.tansuo.findCount = 0;
+                global.state.tansuo.fighting = 'normal';
+                global.state.global.fighting = 'tansuo';
                 return true;
             } else {
                 step += 80;
@@ -167,15 +167,15 @@ export class TanSuo extends Scene {
 
     tanSuoSlide() {
         if (global.state.tansuo.findCount < 3 && global.state.tansuo.findCount >= 0) {
-            global.automator.swipe(random(1600, 1800), random(225, 275), random(100, 300), random(225, 275), random(1000, 1200));
+            global.automator.swipe([random(1600, 1800), random(225, 275)], [random(100, 300), random(225, 275)], undefined, undefined, random(1000, 1200));
             global.logger.verbose('探索场景：没怪了，右划一下');
             global.state.tansuo.findCount += 1;
         } else if (global.state.tansuo.findCount >= 3) {
-            global.automator.swipe(random(100, 300), random(225, 275), random(1600, 1800), random(225, 275), random(1000, 1200));
+            global.automator.swipe([random(100, 300), random(225, 275)], [random(1600, 1800), random(225, 275)], undefined, undefined,random(1000, 1200));
             global.logger.verbose('探索场景：右划好像到底了，开始左划');
             global.state.tansuo.findCount = -1;
         } else if (global.state.tansuo.findCount < 0 && global.state.tansuo.findCount >= -3) {
-            global.automator.swipe(random(100, 300), random(225, 275), random(1600, 1800), random(225, 275), random(1000, 1200));
+            global.automator.swipe([random(100, 300), random(225, 275)], [random(1600, 1800), random(225, 275)], undefined, undefined,random(1000, 1200));
             global.logger.verbose('探索场景：没怪了，左划一下');
             global.state.tansuo.findCount -= 1;
         } else {
@@ -199,12 +199,12 @@ export class TanSuo extends Scene {
                 this.clickButton('tansuo_prepare_exit');
                 return;
             }
-            if (findColors('tansuo_normal_prepare') != null) {
+            if (this.findColors('tansuo_normal_prepare') != null) {
                 this.clickButton('tansuo_kunnan');
                 return;
             }
             this.clickButton('tansuo_start');
-            now.tansuo.end = false;
+            global.state.tansuo.end = false;
         }
         
         if(this.match_tag == 'tansuo_scene') {

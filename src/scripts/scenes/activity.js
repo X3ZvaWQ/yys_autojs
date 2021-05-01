@@ -34,7 +34,7 @@ export class Activity extends Scene {
             if (point != null) {
                 this.clickPoint(point);
             } else {
-                global.automator.swipe(1471, 825, 1473, 291, random(500, 700));
+                global.automator.swipe([1471, 825], [1473, 291]);
                 sleep(800);
                 point = this.findColors('activity_fengmo');
                 if (point != null) {
