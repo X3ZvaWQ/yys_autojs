@@ -15,6 +15,7 @@ import { XianShi } from './xianshi';
 import { Disconnection } from './disconnection';
 import { Store } from './store';
 import { Map } from './map';
+import { FengMo } from './fengmo';
 
 const scenes = [
     new Award(),
@@ -29,6 +30,7 @@ const scenes = [
     new TanSuo(),
     new DingHao(),
     new Home(),
+    new FengMo(),
     new Sign(),
     new XianShi(),
     new Store(),

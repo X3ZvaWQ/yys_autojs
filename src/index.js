@@ -18,6 +18,15 @@ class Syy{
         this.initState();
         this.initAutoServicePermission();
         this.initScreenCaptruePermission();
+        global.ws.bind('state_sync', function(ws, msg) {
+            if(msg.type == 'state/push') {
+                let imei = device.getIMEI();
+                if(msg.data[imei] != undefined) {
+                    global.state = msg.data[imei];
+                    logger.warn('State：收到服务器的state变更推送，同步本地。');
+                }
+            }
+        })
     }
 
     initAutoServicePermission() {
@@ -45,7 +54,8 @@ class Syy{
 
     initState() {
         logger.warn('初始化：向服务器请求State数据。');
-        global.state = global.ws.request('state/pull');
+        let state = global.ws.request('state/pull')
+        global.state = state;
         logger.warn('初始化：State数据请求成功。已同步');
     }
 
@@ -57,9 +67,8 @@ class Syy{
     startSyncThread() {
         return threads.start(function() {
             setInterval(function(){
-                global.ws.send('sync/push', {
-                    imei: device.getIMEI(),
-                    data: state
+                global.ws.send('state/push', {
+                    data: global.state
                 });
             }, 30000);
         });

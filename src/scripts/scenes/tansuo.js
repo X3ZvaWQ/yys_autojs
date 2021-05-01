@@ -4,7 +4,7 @@ export class TanSuo extends Scene {
     constructor() {
         super();
         this.scene_name = 'tansuo';
-        this.judge_colors = ['tansuo_prepare', 'tansuo_scene', 'tansuo_exit_confirm'];
+        this.judge_colors = ['tansuo_hard_prepare', 'tansuo_normal_prepare', 'tansuo_scene', 'tansuo_exit_confirm'];
         this.colors = {
             "tansuo_hard_prepare": {
                 "region":[352,226,489,237],
@@ -186,7 +186,7 @@ export class TanSuo extends Scene {
     }
 
     execute() {
-        if(this.match_tag == 'tansuo_prepare') {
+        if(this.match_tag == 'tansuo_hard_prepare' || this.match_tag == 'tansuo_normal_prepare') {
             if (this.timeTo('jiyang')||
             this.timeTo('digui')|| 
             this.timeTo('fengmo')||

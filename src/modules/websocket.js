@@ -2,7 +2,7 @@ importPackage(Packages["okhttp3"]);
 
 export class WebsocketClient {
     responses = {};
-    /* userListeners = {}; */
+    userListeners = {};
 
     constructor(url) {
         let client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
@@ -13,11 +13,11 @@ export class WebsocketClient {
                 let message = JSON.parse(msg);
                 if (message.response) {
                     global.ws.responses[message.response] = message.data;
-                }/*  else {
+                }else if(Object.keys(global.ws.userListeners).length > 0){
                     for (let i in global.ws.userListeners) {
-                        global.ws.userListeners[i](websocket.msg);
+                        global.ws.userListeners[i](webSocket, msg);
                     }
-                } */
+                }
             }
         }));
         this.client = webSocket;

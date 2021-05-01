@@ -47,17 +47,17 @@ export class Store extends Scene {
 
     execute() {
         if(this.match_tag == 'store_gift') {
-            if (!clickIfColorsExist('free_blackegg')) {
+            if (!this.clickIfColorsExist('free_blackegg')) {
                 state.global.last_get_free_blackegg = Date.now();
-                global.logger.info('免费黑蛋领了/已经领过了，退出商店');
+                global.logger.info('商店：免费黑蛋领了/已经领过了，退出商店');
                 this.clickButton('store_gift_exit');
                 return;
             }
         }
         if(this.match_tag == 'store_interface') {
-            if (!clickIfColorsExist('store_gift_red')) {
+            if (!this.clickIfColorsExist('store_gift_red')) {
                 state.global.last_get_free_blackegg = Date.now();
-                global.logger.info('免费黑蛋领了/已经领过了，退出商店');
+                global.logger.info('商店：免费黑蛋领了/已经领过了，退出商店');
                 this.clickButton('store_exit');
                 return;
             }

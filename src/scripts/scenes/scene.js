@@ -133,7 +133,7 @@ export class Scene{
         logger.verbose('点击按钮：' + button);
         let button_data = this.buttons[button];
         if (button_data == undefined) {
-            logger.warn('错误：尝试点击没有数据的按钮 ' + button);
+            logger.error('错误：尝试点击没有数据的按钮 ' + button);
             return false
         }
         return this.clickPoint(button_data['center'], button_data['offset']);
@@ -142,6 +142,10 @@ export class Scene{
     findColors(color_tag) {
         if (typeof color_tag == 'string') {
             let colors_data = this.colors[color_tag];
+            if(colors_data == undefined) {
+                global.logger.error(`错误：找不到colors数据：${color_tag}`);
+                exit();
+            }
             let point = images.findMultiColors(this.screenshot, colors_data.first, colors_data.colors, {
                 region: colors_data.region,
                 threshold: 12
@@ -172,8 +176,9 @@ export class Scene{
         }
         for (let color of this.judge_colors) {
             if (this.findColors(color) != null) {
-                if(this.scene_name != state.temp.last_scene) {
+                if(this.scene_name != global.state.temp.last_scene) {
                     logger.verbose('当前界面：' + this.scene_name);
+                    global.state.temp.last_scene = this.scene_name;
                 }
                 this.match_tag = color;
                 return true;
@@ -227,10 +232,10 @@ export class Scene{
             },
             getBlackEgg: () => {
                 let tmpTime = new Date();
-                tmpTime.setHours(12);
+                tmpTime.setHours(0);
                 tmpTime.setMinutes(0);
                 tmpTime.setSeconds(0);
-                return state.global.last_kill_digui < tmpTime.getTime() && new Date().getHours() >= 12 && new Date().getHours() <= 23;
+                return state.global.last_get_free_blackegg < tmpTime.getTime();
             },
             jiyang: () => {
                 return Date.now() > state.jiejie.jiyang_end

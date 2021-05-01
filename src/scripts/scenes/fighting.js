@@ -68,6 +68,11 @@ export class Fighting extends Scene {
             },
         };
         this.buttons = {
+            "fighting_prepare": {
+            "center": [1755, 838],
+            "offset": [100,100],
+            "desc": "战斗准备按钮"
+        },
             "fighting_prepare_exit": {
                 "center": [53, 48],
                 "offset": [30,30],

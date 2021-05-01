@@ -165,7 +165,7 @@ export class TuPo extends Scene {
     }
 
     exitOrToLiaoTupo() {
-        if (Date.now() > global.state.tupo.liao_cd && timeToLiaotTu()) {
+        if (this.timeTo('liaotu')) {
             global.logger.info('个人突破：没有能打的/票没了，寮突可以打了，去打寮突');
             this.clickButton('tupo_liao');
         } else {

@@ -102,20 +102,21 @@ export class Digui extends Scene {
     execute() {
         //地域鬼王地图
         if(this.match_tag == 'digui_interface') {
-            if (this.timeTo('duigui')) {
+            if (this.timeTo('digui')) {
                 this.clickButton('digui_filter');
                 sleep(1200);
                 this.clickButton('digui_hot');
                 return;
             } else {
                 this.clickButton('digui_exit');
+                global.logger.info('地域鬼王：击杀结束，退出界面');
                 return;
             }
         }
 
         //地域鬼王 热门
         if(this.match_tag == 'digui_map_dark') {
-            if (clickIfColorsExist('digui_fight_button')) {
+            if (this.clickIfColorsExist('digui_fight_button')) {
                 return;
             };
             clickButton('digui_exit');
@@ -129,7 +130,7 @@ export class Digui extends Scene {
                 this.updateCapture();
             }
             if (this.findColors('digui_damo_common') != null) {
-                global.automator.swipe(644, 445, 644 < 460 ? 0 : 644 - 460, 445 + random(-30, 30), random(300, 500));
+                global.automator.swipe([644, 445], [644 - 460, 445], [0,0], [0, 30]);
                 sleep(200);
                 this.clickButton('digui_fight');
                 global.state.global.fighting = 'digui';

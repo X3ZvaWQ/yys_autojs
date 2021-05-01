@@ -85,7 +85,7 @@ export class Home extends Scene {
     }
 
     goToTanSuo() {
-        this.automator.swipe([1678, 813], [65, 827]);
+        global.automator.swipe([1678, 813], [65, 827]);
         sleep(800);
         this.clickButton('home_tansuo');
     }
@@ -129,7 +129,7 @@ export class Home extends Scene {
             return;
         }
         if (Object.keys(state.tansuo.setting.list) > 0
-            || Date.now() > state.tupo.liao_cd && timeToLiaotTu()) {
+            || this.timeTo('liaotu')) {
             this.goToTansuo();
             return;
         }
