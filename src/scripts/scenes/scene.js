@@ -114,8 +114,12 @@ export class Scene{
         this.judge_colors = [];
     }
 
+    updateCapture() {
+        global.screenshot = images.captureScreen();
+        this.update();
+    }
+
     update() {
-        this.state = global.state;
         this.screenshot = global.screenshot;
     }
 
@@ -190,7 +194,7 @@ export class Scene{
                 tmp_date.setDate(tmp_date.getDate() + 1);
                 tmp_date.setHours(5);
                 if(tmp_date.getTime() < Date.now()) {
-                    return true;
+                    return state.tupo.liao_cd < Date.now();
                 }else {
                     return false;
                 };
