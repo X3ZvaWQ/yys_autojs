@@ -279,10 +279,11 @@ export class JieJie extends Scene {
                 return;
             }
             global.state.jiejie.jiyang_try_times += 1;
-            global.automator.swipe([614, 530], [614, 380]);
+            global.automator.swipe([614, 530], [614, 380], [50, 0], [50, 0]);
             this.clickButton('jiejie_jiyang_select_first');
             sleep(400);
             return;
         }
     }
+    
 }
