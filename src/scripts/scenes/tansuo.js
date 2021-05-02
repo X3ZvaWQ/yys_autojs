@@ -205,6 +205,7 @@ export class TanSuo extends Scene {
             }
             this.clickButton('tansuo_start');
             global.state.tansuo.end = false;
+            return;
         }
         
         if(this.match_tag == 'tansuo_scene') {
@@ -236,6 +237,7 @@ export class TanSuo extends Scene {
                 this.tanSuoSlide();
                 return;
             }
+            return;
         }
 
         if(this.match_tag == 'tansuo_exit_confirm') {
@@ -243,5 +245,6 @@ export class TanSuo extends Scene {
             global.logger.info('探索场景：确认退出');
             global.state.tansuo.findCount = 0;
         }
+        return;
     }
 }

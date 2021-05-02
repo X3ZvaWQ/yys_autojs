@@ -187,7 +187,7 @@ export class FengMo extends Scene {
                 return;
             }
             if (this.findColors('fengmo_damo_end') != null) {
-                if (this.timeToFengmo()) {
+                if (this.timeTo('fengmo')) {
                     global.logger.info('逢魔之时：寻找首领');
                     this.clickButton('fengmo_find_boss');
                     sleep(2000);

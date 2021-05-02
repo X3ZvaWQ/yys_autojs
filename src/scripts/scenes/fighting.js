@@ -4,7 +4,7 @@ export class Fighting extends Scene {
     constructor() {
         super();
         this.scene_name = 'fighting';
-        this.judge_colors = ['fighting', 'fighting_exit_confirm', 'fighting_prepare', 'fighting_exchange', 'fighting_exchange_dark'];
+        this.judge_colors = ['fighting', 'fighting_exchange', 'fighting_exchange_dark', 'fighting_exit_confirm', 'fighting_prepare'];
         this.colors = {
             "fighting": {
                 "region":[6,3,324,104],
