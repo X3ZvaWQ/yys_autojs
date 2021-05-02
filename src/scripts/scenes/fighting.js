@@ -169,7 +169,7 @@ export class Fighting extends Scene {
                 //复位
                 sleep(800);
                 global.automator.swipe([339, 860], [639, 860]);
-                global.logger('狗粮更换：更换第二个位置的狗粮...');
+                global.logger.log('狗粮更换：更换第二个位置的狗粮...');
                 return;
             }
             this.clickButton('fighting_prepare');

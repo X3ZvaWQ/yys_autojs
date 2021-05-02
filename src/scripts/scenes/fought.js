@@ -36,7 +36,7 @@ export class Fought extends Scene {
 
     execute() {
         //胜利
-        if(this.match_tag == 'fighting_victory_settle' || this.match_tag == 'fighting_victory_settle') {
+        if(this.match_tag == 'fighting_victory_settle' || this.match_tag == 'fighting_victory_settle_1') {
             this.clickButton('fought_confirm');
             //统计击杀次数
             if (global.state.global.fighting == 'tansuo' && global.state.tansuo.fighting == 'boss') {

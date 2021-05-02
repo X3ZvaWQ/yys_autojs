@@ -181,6 +181,7 @@ export class Scene {
                     global.state.temp.last_scene = this.scene_name + '_' + color;
                 }
                 this.match_tag = color;
+                global.state.temp.last_unknown = 0;
                 return true;
             }
         }
@@ -283,6 +284,14 @@ export class Scene {
         if (this.findColors('sell_2')) {
             clickButton('sell_2_exit');
             return;
+        }
+
+        if(global.state.temp.last_unknown == 0) {
+            global.state.temp.last_unknown = Date.now();
+        };
+        if(global.state.temp.last_unknown != 0 && Date.now() - global.state.temp.last_unknown > 10*1000){
+            this.clickPoint({x: 1, y: 1});
+            sleep(2000);
         }
     }
 }
