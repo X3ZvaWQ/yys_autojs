@@ -4,7 +4,7 @@ export class Digui extends Scene {
     constructor() {
         super();
         this.scene_name = 'digui';
-        this.judge_colors = ['digui_interface', 'digui_map_dark', 'digui_prepare_interface'];
+        this.judge_colors = ['digui_interface', 'digui_map_dark', 'digui_prepare_interface', 'digui_share'];
         this.colors = {
             "digui_interface": {
                 "region":[731,2,496,97],
@@ -54,6 +54,12 @@ export class Digui extends Scene {
                 "first":"#911a09",
                 "colors":[[0,5,"#f3c18e"],[-5,8,"#b8451b"],[14,-16,"#e0cfad"],[10,-12,"#f9c652"],[6,-9,"#335588"],[-15,-10,"#67bcef"],[-18,-7,"#85c3ee"],[-20,-5,"#3e82b5"],[-23,-9,"#fbd77e"]]
             },
+            "digui_share": {
+                "region":[788,990,184,59],
+                "desc":"地鬼 分享界面",
+                "first":"#f5f0dd",
+                "colors":[[7,1,"#2d231a"],[19,4,"#714738"],[31,-2,"#c2bcab"],[29,12,"#a9a293"],[36,11,"#291d13"],[40,1,"#c9c3b2"],[46,4,"#231910"],[53,9,"#6e4637"],[67,4,"#beb8a8"]]
+            }
         };
         this.buttons = {
             "digui_filter": {
@@ -70,6 +76,11 @@ export class Digui extends Scene {
                 "center": [1737, 109],
                 "offset": [25, 25],
                 "desc": "地域鬼王准备页面 右上角 退出准备界面"
+            },
+            "digui_share": {
+                "center": [1708, 627],
+                "offset": [40, 40],
+                "desc": "地域鬼王准备页面 分享按钮"
             },
             "digui_fight": {
                 "center": [1700, 800],
@@ -95,6 +106,16 @@ export class Digui extends Scene {
                 "center": [1446, 997],
                 "offset": [30, 30],
                 "desc": "地域鬼王奖励，第三个达摩"
+            },
+            "digui_share_wx": {
+                "center": [1668, 1008],
+                "offset": [30, 30],
+                "desc": "地域鬼王分享，微信"
+            },
+            "digui_share_return": {
+                "center": [87, 90],
+                "offset": [30, 30],
+                "desc": "地域鬼王分享，退出"
             }
         }
     }
@@ -119,7 +140,7 @@ export class Digui extends Scene {
             if (this.clickIfColorsExist('digui_fight_button')) {
                 return;
             };
-            clickButton('digui_exit');
+            this.clickButton('digui_exit');
             return;
         }
 
@@ -133,25 +154,48 @@ export class Digui extends Scene {
                 global.automator.swipe([644, 445], [644 - 460, 445], [0,0], [0, 30]);
                 sleep(200);
                 this.clickButton('digui_fight');
+                global.logger.info('地域鬼王：开始战斗');
                 global.state.global.fighting = 'digui';
                 return;
             } else if (this.findColors('digui_damo_end_3') != null) {
-                global.state.global.last_kill_digui = Date.now();
+                global.state.digui.last_kill_digui = Date.now();
+                if(this.timeTo('diguiShare')){
+                    this.clickButton('digui_share');
+                    global.logger.info('地域鬼王：准备每周分享');
+                    return;
+                }
                 this.clickButton('digui_prepare_exit');
+                global.logger.info('地域鬼王：击杀结束，退出界面');
                 return;
             } else {
                 if (this.findColors('digui_damo_end_1') == null) {
                     this.clickButton('digui_award1');
+                    global.logger.info('地域鬼王：领取第一个奖励');
                     return;
                 }
                 if (this.findColors('digui_damo_end_2') == null) {
                     this.clickButton('digui_award2');
+                    global.logger.info('地域鬼王：领取第二个奖励');
                     return;
                 }
                 if (this.findColors('digui_damo_end_3') == null) {
                     this.clickButton('digui_award3');
+                    global.logger.info('地域鬼王：领取第三个奖励');
                     return;
                 }
+            }
+        }
+
+        //地域鬼王， 分享
+        if(this.match_tag == 'digui_share') {
+            if(!this.timeTo('diguiShare')) {
+                this.clickButton('digui_share_return');
+                global.logger.info('地域鬼王：分享结束，返回');
+            }else{
+                sleep(1000);
+                this.clickButton('digui_share_wx');
+                global.logger.info('地域鬼王：默认使用微信分享');
+                global.state.digui.last_share_digui = Date.now();
             }
         }
     }

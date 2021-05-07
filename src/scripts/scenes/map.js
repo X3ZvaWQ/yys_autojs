@@ -127,6 +127,9 @@ export class Map extends Scene{
     }
 
     execute() {
+        if (this.clickIfColorsExist('tansuo_award')) {
+            global.logger.info('地图：发现探索宝箱，点之');
+        };
         if (this.timeTo('digui')) {
             this.clickButton('map_digui');
             global.logger.info('地图：准备地鬼/封魔日常');
@@ -152,12 +155,15 @@ export class Map extends Scene{
             this.clickButton('map_tupo');
             return;
         }
-        if (this.clickIfColorsExist('tansuo_award')) return;
         if (Object.keys(global.state.tansuo.setting.list).length != 0) {
-            let tansuolevel = Object.keys(global.state.tansuo.setting.list)[0];
-            global.state.tansuo.target = tansuolevel;
-            this.openTanSuo(tansuolevel);
-            return;
+            sleep(400);
+            this.updateCapture();
+            if(this.isCurrentScene()){
+                let tansuolevel = Object.keys(global.state.tansuo.setting.list)[0];
+                global.state.tansuo.target = tansuolevel;
+                this.openTanSuo(tansuolevel);
+                return;
+            }
         }
         global.logger.info('地图：没事干了，回庭院挂机！');
         this.clickButton('map_return');

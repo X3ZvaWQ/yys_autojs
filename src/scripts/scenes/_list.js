@@ -4,6 +4,7 @@ import { Home } from './home';
 import { Sign } from './sign';
 import { Activity } from './activity';
 import { Award } from './award';
+import { DouJi } from './douji';
 import { Login } from './login';
 import { Digui } from './digui';
 import { TuPo } from './tupo';
@@ -16,15 +17,17 @@ import { Disconnection } from './disconnection';
 import { Store } from './store';
 import { Map } from './map';
 import { FengMo } from './fengmo';
+import { Friend } from './friend';
 
 const scenes = [
     new Award(),
     new Activity(),
-    new Login(),
     new Digui(),
     new TuPo(),
     new Map(),
+    new DouJi(),
     new Fighting(),
+    new Friend(),
     new Fought(),
     new JieJie(),
     new TanSuo(),
@@ -35,7 +38,8 @@ const scenes = [
     new XianShi(),
     new Store(),
     new Disconnection(),
-    new Scene()
+    new Login(),
+    new Scene(),
 ]
 
 export { scenes };

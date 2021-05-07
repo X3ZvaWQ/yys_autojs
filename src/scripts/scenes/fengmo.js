@@ -165,6 +165,11 @@ export class FengMo extends Scene {
                 "offset": [200,30],
                 "desc": "战斗结束的时候点屏幕继续。"
             },
+            "fighting_prepare_exit_confirm": {
+                "center": [1112, 632],
+                "offset": [70,30],
+                "desc": "确认退出战斗"
+            }
         }
     }
 
@@ -193,7 +198,7 @@ export class FengMo extends Scene {
                     sleep(2000);
                     global.logger.info('逢魔之时：点击首领');
                     this.clickButton('fengmo_center');
-                    global.state.fengmo.clickedclicked = false;
+                    global.state.fengmo.clicked = false;
                     return;
                 } else {
                     global.logger.info('逢魔之时：封魔任务完成，离开该界面');
@@ -209,7 +214,7 @@ export class FengMo extends Scene {
         if(this.match_tag == 'fengmo_question_interface') {
             let img = images.clip(this.screenshot, 644, 252, 666, 125);
             global.logger.verbose('尝试ocr获取问题');
-            let question = global.ocr.recognize(img).replace('5', '?');
+            let question = global.ocr.recognize(img);
             global.logger.verbose('服务器ocr响应结束，问题是:' + question);
             let ans;
             let question_find = false;
@@ -267,7 +272,7 @@ export class FengMo extends Scene {
                 if (global.state.fengmo.boss_try_times >= 4) {
                     global.logger.warn('逢魔之时：逢魔好多次都进不去，今天可能打了，明天见');
                     this.clickButton('fengmo_boss_mass_exit');
-                    global.state.global.last_kill_fengmo_boss = Date.now();
+                    global.state.fengmo.last_kill_fengmo_boss = Date.now();
                     global.state.fengmo.boss_try_times = 0;
                     sleep(2000);
                     return;
@@ -311,7 +316,7 @@ export class FengMo extends Scene {
         if(this.match_tag == 'fengmo_boss_settlement') {
             this.clickButton('fighting_victory_confirm');
             global.logger.info('逢魔boss击杀结束，更新boss击杀时间，确认结算');
-            global.state.global.last_kill_fengmo_boss = Date.now();
+            global.state.fengmo.last_kill_fengmo_boss = Date.now();
         }
     }
 }

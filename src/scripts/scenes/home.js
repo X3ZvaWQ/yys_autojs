@@ -118,6 +118,11 @@ export class Home extends Scene {
             this.clickButton('home_store');
             return;
         }
+        if(this.timeTo('friendPoint')){
+            global.logger.info('庭院：尝试开始送友情点');
+            this.clickButton('home_friends');
+            return;
+        }
         if (this.timeTo('fengmo') || this.timeTo('digui')) {
             this.clickButton('home_xianshi');
             global.logger.info('庭院：冲！打封魔/地鬼去咯');

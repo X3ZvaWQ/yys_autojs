@@ -57,7 +57,7 @@ export class Fought extends Scene {
             }
             //记录 封魔boss 已经击杀过了（
             if (global.state.global.fighting == 'fengmo') {
-                global.state.global.last_kill_fengmo_boss = Date.now();
+                global.state.fengmo.last_kill_fengmo_boss = Date.now();
             }
             return;
         }

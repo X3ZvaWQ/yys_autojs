@@ -12,6 +12,12 @@ export class Fighting extends Scene {
                 "first":"#463827",
                 "colors":[[3,2,"#7c6b5a"],[2,5,"#d3c2a0"],[28,4,"#d2c2a1"],[25,0,"#80704e"],[23,1,"#94845a"],[22,-4,"#301e0d"],[104,3,"#48401e"],[104,7,"#aa8b4e"],[112,8,"#d7c5a2"]]
             },
+            "fighting_manual": {
+                "region":[4,884,244,192],
+                "desc":"手动战斗",
+                "first":"#746c5e",
+                "colors":[[-17,2,"#f2ecda"],[-23,0,"#382d20"],[-27,-2,"#e1dcca"],[-24,-7,"#8a8273"],[-27,-5,"#f8f3e0"],[-33,-12,"#e1dbc9"],[-26,-20,"#5a5271"],[-38,1,"#51445d"],[-42,13,"#8a7467"]]
+            },
             "fighting_exit_confirm": {
                 "region":[750,421,410,102],
                 "desc":"",
@@ -55,10 +61,10 @@ export class Fighting extends Scene {
                 "colors":[[6,0,"#288eb0"],[11,0,"#3398ca"],[5,4,"#399fc1"],[1,18,"#66c5dd"],[4,23,"#77cce3"],[6,26,"#89deef"],[33,26,"#7ce2f3"],[34,13,"#55bbdd"],[49,10,"#48b1d2"]]
             },
             "fighting_exchange": {
-                "region":[2,319,81,102],
+                "region":[1352,1001,219,79],
                 "desc":"换式神界面判断",
-                "first":"#104367",
-                "colors":[[0,25,"#041a38"],[6,9,"#0a2f51"],[11,4,"#0e3d61"],[22,18,"#072445"],[31,11,"#0f4265"],[34,31,"#092e52"]]
+                "first":"#7d5b27",
+                "colors":[[-1,1,"#8a6636"],[-2,2,"#8f6743"],[-3,3,"#6d4e3e"],[-4,4,"#402011"],[-3,5,"#533222"],[-2,5,"#684733"],[-1,5,"#836142"],[-6,-4,"#342718"],[-8,-1,"#7d5e21"]]
             },
             "fighting_exchange_type_all": {
                 "region":[24,918,155,148],
@@ -109,6 +115,9 @@ export class Fighting extends Scene {
     execute() {
         //战斗中
         if(this.match_tag == 'fighting') {
+            if(this.clickIfColorsExist('fighting_manual')){
+                global.logger.info('切换自动战斗');
+            }
             //todo 手动切自动
             return;
         }
