@@ -140,18 +140,18 @@ export class Map extends Scene{
             global.logger.info('地图：回庭院 准备封魔');
             return;
         }
-        if (this.timeTo('jiyang')) {
+        if (this.timeTo('jiyang') || this.timeTo('liaotili')) {
             this.clickButton('map_return');
-            global.logger.info('地图：回庭院 准备寄养');
-            return;
-        }
-        if (this.checkTupoTicket() > global.state.tupo.geren_fight_min_ticket && Date.now() > global.state.tupo.refresh_time) {
-            global.logger.info('地图：突破券积攒超过阈值，进入个人突破');
-            this.clickButton('map_tupo');
+            global.logger.info('地图：回庭院 准备寄养/领体力补给');
             return;
         }
         if (this.timeTo('liaotu')) {
             global.logger.info('地图：寮突破冷却的差不多了，进入突破');
+            this.clickButton('map_tupo');
+            return;
+        }
+        if (this.checkTupoTicket() > global.state.tupo.geren_fight_min_ticket && Date.now() > global.state.tupo.refresh_time) {
+            global.logger.info('地图：突破券积攒超过阈值，进入个人突破');
             this.clickButton('map_tupo');
             return;
         }

@@ -224,6 +224,9 @@ export class Scene {
 
     timeTo(tag) {
         let judger = {
+            liaotili: () => {
+                return Date.now() > state.jiejie.last_get_liaotili + 8*60*60*1000;
+            },
             liaotu: () => {
                 let liaotu_clear = state.tupo.liao_clear;
                 if (liaotu_clear === true || liaotu_clear === false) {

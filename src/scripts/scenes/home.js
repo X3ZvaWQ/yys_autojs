@@ -113,6 +113,11 @@ export class Home extends Scene {
             global.logger.info('庭院：打开庭院卷轴');
             return;
         }
+        if (this.timeTo('jiyang') || this.timeTo('liaotili')) {
+            this.clickButton('home_onmyoryou');
+            global.logger.info('庭院：进入阴阳寮准备新一轮寄养/领取体力补给');
+            return;
+        }
         if (this.timeTo('getBlackEgg')) {
             global.logger.info('庭院：尝试领免费黑蛋礼包');
             this.clickButton('home_store');
@@ -126,11 +131,6 @@ export class Home extends Scene {
         if (this.timeTo('fengmo') || this.timeTo('digui')) {
             this.clickButton('home_xianshi');
             global.logger.info('庭院：冲！打封魔/地鬼去咯');
-            return;
-        }
-        if (this.timeTo('jiyang')) {
-            this.clickButton('home_onmyoryou');
-            global.logger.info('庭院：进入阴阳寮准备新一轮寄养');
             return;
         }
         if (Object.keys(state.tansuo.setting.list) > 0 || this.timeTo('liaotu')) {

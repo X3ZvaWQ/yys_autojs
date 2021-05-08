@@ -4,7 +4,7 @@ export class JieJie extends Scene {
     constructor() {
         super();
         this.scene_name = 'jiejie';
-        this.judge_colors = ['onmyoryou', 'jiejie', 'jiejie_tilishihe', 'jiejie_feed', 'jiejie_jiyang_select'];
+        this.judge_colors = ['onmyoryou', 'onmyoryou_map', 'jiejie', 'jiejie_tilishihe', 'jiejie_feed', 'jiejie_jiyang_select'];
         this.colors = {
             "onmyoryou": {
                 "region":[165,710,561,181],
@@ -66,12 +66,39 @@ export class JieJie extends Scene {
                 "first":"#151210",
                 "colors":[[0,-1,"#25201b"],[2,-4,"#18130e"],[2,-9,"#241c18"],[-50,11,"#130c0a"],[-41,20,"#0e0a07"],[0,17,"#0b0806"],[60,12,"#15100b"],[158,-2,"#1c1712"],[-129,-2,"#1d1813"]]
             },
+            "award": {
+                "region":[450,228,1069,571],
+                "desc":"通用获得奖励",
+                "first":"#ebdba4",
+                "colors":[[3,0,"#876532"],[23,0,"#eeeebb"],[32,2,"#70511e"],[34,-6,"#f9eec5"],[30,49,"#d9c37d"],[43,52,"#663311"],[65,95,"#663812"],[43,61,"#d2c17d"],[-2,44,"#70653d"]]
+            },
+            "onmyoryou_map": {
+                "region":[6,842,283,229],
+                "desc":"阴阳寮地图",
+                "first":"#e57777",
+                "colors":[[3,-1,"#af6f6f"],[3,-2,"#b39292"],[4,-4,"#d2c1c1"],[-2,-17,"#c5beb4"],[-5,-20,"#a59d95"],[-25,-30,"#6ca0a4"],[-35,-31,"#f0dfc8"],[-39,-31,"#f0df9f"],[-34,-23,"#ccbbcc"]]
+            }
         };
         this.buttons = {
             "onmyoryou_jiejie": {
                 "center": [1471, 984],
                 "offset": [70, 70],
                 "desc": "从阴阳寮进入结界"
+            },
+            "onmyoryou_map": {
+                "center": [1668, 984],
+                "offset": [70, 70],
+                "desc": "从阴阳寮进入地图"
+            },
+            "onmyoryou_map_go": {
+                "center": [78, 782],
+                "offset": [30, 30],
+                "desc": "前往寮的位置"
+            },
+            "onmyoryou_map_exit": {
+                "center": [92, 95],
+                "offset": [30, 30],
+                "desc": "退出阴阳寮地图"
             },
             "onmyoryou_exit": {
                 "center": [73, 48],
@@ -163,11 +190,29 @@ export class JieJie extends Scene {
             if(this.timeTo('jiyang')){
                 this.clickButton('onmyoryou_jiejie');
                 global.logger.info('阴阳寮：进入结界');
-            }else{
+            }else if(this.timeTo('liaotili')){
+                this.clickButton('onmyoryou_map');
+                global.logger.info('阴阳寮：进入结界');
+            }else {
                 this.clickButton('onmyoryou_exit');
                 global.logger.info('阴阳寮：离开阴阳寮');
             }
             return;
+        }
+
+        if(this.match_tag == 'onmyoryou_map') {
+            if(!this.timeTo('liaotili')) {
+                this.clickButton('onmyoryou_map_exit');
+                return;
+            }else{
+                this.clickButton('onmyoryou_map_go');
+                sleep(5000);
+                this.clickPoint([958, 323]);
+                sleep(2000);
+                this.clickPoint([1656, 446]);
+                global.state.jiejie.last_get_liaotili = Date.now();
+                return;
+            }
         }
 
         //结界
@@ -179,6 +224,10 @@ export class JieJie extends Scene {
 
             this.clickButton('jiejie_jiyang_get');
             sleep(random(200, 400));
+            this.updateCapture();
+            if(this.findColors('award')) {
+                return;
+            }
 
             if(this.timeTo('jiyang')) {
                 this.clickButton('jiejie_feed')
