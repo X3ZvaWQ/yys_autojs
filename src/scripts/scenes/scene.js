@@ -258,7 +258,7 @@ export class Scene {
             },
             diguiShare: () => {
                 let now_time = new Date();
-                let tmpTime = new Date(now_time.getFullYear(), now_time.getMonth(), now_time.getDate() - now_time.getDay() + 1);
+                let tmpTime = new Date(now_time.getFullYear(), now_time.getMonth(), now_time.getDate() - (now_time.getDay() == 0 ? 7 : now_time.getDay()) + 1);
                 return state.digui.last_share_digui < tmpTime.getTime();
             },
             friendPoint: () => {

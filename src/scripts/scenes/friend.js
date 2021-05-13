@@ -60,24 +60,29 @@ export class Friend extends Scene {
         if (this.clickIfColorsExist('friend_send_1', [10, 10])) {
             global.state.friends.friend_point_send_count += 1;
             global.logger.info('给亲友送出了一个友情点');
+            sleep(random(1000, 1200));
             return;
         }
         if (this.clickIfColorsExist('friend_received_1', [10, 10])) {
             global.state.friends.friend_point_send_count += 1;
             global.logger.info('收到了亲友的一个友情点');
+            sleep(random(1000, 1200));
             return;
         }
         if (this.clickIfColorsExist('friend_send_2', [10, 10])) {
             global.state.friends.friend_point_send_count += 1;
             global.logger.info('给好友送出了一个友情点');
+            sleep(random(1000, 1200));
             return;
         }
         if (this.clickIfColorsExist('friend_received_2', [10, 10])) {
             global.state.friends.friend_point_send_count += 1;
             global.logger.info('收到了好友的一个友情点');
+            sleep(random(1000, 1200));
             return;
         }
         automator.swipe([479, 778], [479, 478], [0, 0], [0, 0]);
+        sleep(random(1000, 1200));
         return;
     }
 }

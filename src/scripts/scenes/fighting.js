@@ -155,6 +155,12 @@ export class Fighting extends Scene {
         }
         //换狗粮
         if(this.match_tag == 'fighting_exchange') {
+            if(global.state.global.fighting == 'douji') {
+                this.clickButton('fighting_prepare');
+                global.logger.info('战斗准备：点击准备，开始战斗');
+                sleep(random(3000, 5000))
+                return;
+            }
             if(this.findColors('fighting_exchange_maxlevel_1')){
                 if(this.findColors('fighting_exchange_type_all')) {
                     this.clickButton('fighting_exchange_type');

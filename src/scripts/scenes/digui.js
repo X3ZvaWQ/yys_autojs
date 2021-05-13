@@ -196,6 +196,7 @@ export class Digui extends Scene {
                 this.clickButton('digui_share_wx');
                 global.logger.info('地域鬼王：默认使用微信分享');
                 global.state.digui.last_share_digui = Date.now();
+                sleep(5000);
             }
         }
     }
