@@ -18,6 +18,10 @@ class Syy{
         this.initState();
         this.initAutoServicePermission();
         this.initScreenCaptruePermission();
+        app.stopPackage = function(packageName) {
+            shell('am force-stop ' + packageName, true);
+        }
+
         global.ws.bind('state_sync', function(ws, msg) {
             if(msg.type == 'state/push') {
                 let imei = device.getIMEI();

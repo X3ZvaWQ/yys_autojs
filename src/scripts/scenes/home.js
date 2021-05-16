@@ -91,6 +91,13 @@ export class Home extends Scene {
     }
 
     execute() {
+        state.temp.home_excute_times += 1;
+        if(state.temp.home_excute_times >= 12) {
+            global.logger.warn('游戏疑似卡死在首页，尝试重启游戏');
+            app.stopPackage(global.state.settings.packageName);
+            state.temp.home_excute_times = 0;
+            return;
+        }
         if (this.clickIfColorsExist('free_sushi')){
             global.logger.info('庭院：领取庭院免费体力*20');
             return;
@@ -136,6 +143,8 @@ export class Home extends Scene {
         if (Object.keys(state.tansuo.setting.list) > 0 || this.timeTo('liaotu')) {
             global.logger.info('庭院：寮突冷却完毕/存在探索任务，前往地图');
             this.goToTanSuo();
+            return;
         }
+        state.temp.home_excute_times -= 1;
     }
 }

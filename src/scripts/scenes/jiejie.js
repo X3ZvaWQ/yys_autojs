@@ -302,6 +302,7 @@ export class JieJie extends Scene {
             let award_arr = [award.match(/体力\+(\d+)/), award.match(/勾玉\+(\d+)/)];
             if(global.state.jiejie.jiyang_try_times == 20) {
                 this.resetJiyangSelect()
+                global.state.jiejie.jiyang_try_times += 1;
                 return;
             }
             if(global.state.jiejie.jiyang_force >= 30) {

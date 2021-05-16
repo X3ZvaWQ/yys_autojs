@@ -345,5 +345,9 @@ export class Scene {
             this.clickPoint({x: 1, y: 1});
             sleep(2000);
         }
+        if(global.state.temp.last_unknown != 0 && Date.now() - global.state.temp.last_unknown > 180*1000){
+            global.logger.warn('未知界面退出失败，尝试重启应用');
+            app.stopPackage(global.state.settings.packageName);
+        }
     }
 }
