@@ -13,6 +13,7 @@ export function startThread() {
             }
             //check game app is aliv
             if (currentPackage() != state.settings.packageName) {
+                state.temp.last_unknown = 0;
                 logger.warn('痒痒鼠崩溃了好像，5秒后重启...');
                 sleep(5000);
                 app.launchPackage(state.settings.packageName);

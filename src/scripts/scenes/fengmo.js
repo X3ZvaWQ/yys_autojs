@@ -198,7 +198,7 @@ export class FengMo extends Scene {
                     sleep(2000);
                     global.logger.info('逢魔之时：点击首领');
                     this.clickButton('fengmo_center');
-                    global.state.fengmo.clicked = false;
+                    state.fengmo.clicked = false;
                     return;
                 } else {
                     global.logger.info('逢魔之时：封魔任务完成，离开该界面');
@@ -268,19 +268,19 @@ export class FengMo extends Scene {
         }
 
         if(this.match_tag == 'fengmo_boss_mass_button') {
-            if (global.state.fengmo.clicked) {
-                if (global.state.fengmo.boss_try_times >= 4) {
+            if (state.fengmo.clicked) {
+                if (state.fengmo.boss_try_times >= 4) {
                     global.logger.warn('逢魔之时：逢魔好多次都进不去，今天可能打了，明天见');
                     this.clickButton('fengmo_boss_mass_exit');
-                    global.state.fengmo.last_kill_fengmo_boss = Date.now();
-                    global.state.fengmo.boss_try_times = 0;
+                    state.fengmo.last_kill_fengmo_boss = Date.now();
+                    state.fengmo.boss_try_times = 0;
                     sleep(2000);
                     return;
                 }
-                global.state.fengmo.boss_try_times += 1;
-                global.logger.info('逢魔之时：逢魔，这只满了，下一只，第 ' + global.state.fengmo.boss_try_times + ' 次尝试');
+                state.fengmo.boss_try_times += 1;
+                global.logger.info('逢魔之时：逢魔，这只满了，下一只，第 ' + state.fengmo.boss_try_times + ' 次尝试');
                 this.clickButton('fengmo_boss_mass_exit');
-                global.state.fengmo.clicked = false;
+                state.fengmo.clicked = false;
                 return;
             } else {
                 global.logger.info('逢魔之时：逢魔，集结挑战');
@@ -291,14 +291,14 @@ export class FengMo extends Scene {
                     sleep(1200);
                     this.clickButton('fengmo_boss_mass_confirm_yes');
                 }
-                global.state.fengmo.clicked = true;
+                state.fengmo.clicked = true;
                 sleep(2000);
             }
         }
 
         if(this.match_tag == 'fengmo_boss_prepare') {
-            global.state.fengmo.clicked = false;
-            global.state.fengmo.boss_try_times = 0;
+            state.fengmo.clicked = false;
+            state.fengmo.boss_try_times = 0;
             if (!this.timeTo('fengmo')) {
                 this.clickButton('fengmo_boss_prepare_exit');
                 global.logger.info('逢魔之时：退出集结界面');
@@ -309,14 +309,14 @@ export class FengMo extends Scene {
             if (this.clickIfColorsExist('fengmo_boss_prepare_award')){
                 global.logger.info('逢魔之时：看到了小纸人的奖励，尝试点击');
             };
-            global.state.global.fighting = 'fengmo';
+            state.global.fighting = 'fengmo';
             return;
         }
 
         if(this.match_tag == 'fengmo_boss_settlement') {
             this.clickButton('fighting_victory_confirm');
             global.logger.info('逢魔boss击杀结束，更新boss击杀时间，确认结算');
-            global.state.fengmo.last_kill_fengmo_boss = Date.now();
+            state.fengmo.last_kill_fengmo_boss = Date.now();
         }
     }
 }

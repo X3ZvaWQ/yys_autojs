@@ -155,10 +155,10 @@ export class Digui extends Scene {
                 sleep(200);
                 this.clickButton('digui_fight');
                 global.logger.info('地域鬼王：开始战斗');
-                global.state.global.fighting = 'digui';
+                state.global.fighting = 'digui';
                 return;
             } else if (this.findColors('digui_damo_end_3') != null) {
-                global.state.digui.last_kill_digui = Date.now();
+                state.digui.last_kill_digui = Date.now();
                 if(this.timeTo('diguiShare')){
                     this.clickButton('digui_share');
                     global.logger.info('地域鬼王：准备每周分享');
@@ -195,7 +195,7 @@ export class Digui extends Scene {
                 sleep(1000);
                 this.clickButton('digui_share_wx');
                 global.logger.info('地域鬼王：默认使用微信分享');
-                global.state.digui.last_share_digui = Date.now();
+                state.digui.last_share_digui = Date.now();
                 sleep(5000);
             }
         }

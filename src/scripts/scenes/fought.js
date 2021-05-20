@@ -39,25 +39,25 @@ export class Fought extends Scene {
         if(this.match_tag == 'fighting_victory_settle' || this.match_tag == 'fighting_victory_settle_1') {
             this.clickButton('fought_confirm');
             //统计击杀次数
-            if (global.state.global.fighting == 'tansuo' && global.state.tansuo.fighting == 'boss') {
-                global.state.tansuo.fighting = null;
-                global.state.tansuo.end = true;
-                if (global.state.tansuo.level != null) {
+            if (state.global.fighting == 'tansuo' && state.tansuo.fighting == 'boss') {
+                state.tansuo.fighting = null;
+                state.tansuo.end = true;
+                if (state.tansuo.level != null) {
                     // 判断探索列表有没有这个关卡的任务
-                    if (global.state.tansuo.setting.list[global.state.tansuo.level] != undefined) {
+                    if (state.tansuo.setting.list[state.tansuo.level] != undefined) {
                         // 有任务的话就把击杀次数-1， 如果-1之后是0就删除这个任务
-                        global.state.tansuo.setting.list[global.state.tansuo.level] -= 1;
-                        global.logger.log('战斗胜利：探索结束，任务完成次数+1，剩余次数：' + global.state.tansuo.setting.list[global.state.tansuo.level]);
-                        if (global.state.tansuo.setting.list[global.state.tansuo.level] == 0) {
-                            delete global.state.tansuo.setting.list[global.state.tansuo.level];
-                            global.logger.log('战斗胜利：关卡 ' + global.state.tansuo.level + ' 的探索任务结束');
+                        state.tansuo.setting.list[state.tansuo.level] -= 1;
+                        global.logger.log('战斗胜利：探索结束，任务完成次数+1，剩余次数：' + state.tansuo.setting.list[state.tansuo.level]);
+                        if (state.tansuo.setting.list[state.tansuo.level] == 0) {
+                            delete state.tansuo.setting.list[state.tansuo.level];
+                            global.logger.log('战斗胜利：关卡 ' + state.tansuo.level + ' 的探索任务结束');
                         }
                     };
                 }
             }
             //记录 封魔boss 已经击杀过了（
-            if (global.state.global.fighting == 'fengmo') {
-                global.state.fengmo.last_kill_fengmo_boss = Date.now();
+            if (state.global.fighting == 'fengmo') {
+                state.fengmo.last_kill_fengmo_boss = Date.now();
             }
             return;
         }

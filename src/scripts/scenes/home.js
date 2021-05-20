@@ -94,7 +94,7 @@ export class Home extends Scene {
         state.temp.home_excute_times += 1;
         if(state.temp.home_excute_times >= 12) {
             global.logger.warn('游戏疑似卡死在首页，尝试重启游戏');
-            app.stopPackage(global.state.settings.packageName);
+            app.stopPackage(state.settings.packageName);
             state.temp.home_excute_times = 0;
             return;
         }

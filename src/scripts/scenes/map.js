@@ -83,14 +83,14 @@ export class Map extends Scene{
     }
 
     tansuoScrollTo(to) {
-        if (to == global.state.tansuo.last) return;
+        if (to == state.tansuo.last) return;
         global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
         global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
         global.automator.swipe([1850, 968], [1850, 335], undefined, undefined, random(100, 200));
         sleep(200);
-        let from = global.state.tansuo.setting.max;
+        let from = state.tansuo.setting.max;
         while (from != to) {
             if (from > to) {
                 let step = from - to > 3 ? 3 : from - to;
@@ -106,7 +106,7 @@ export class Map extends Scene{
             }
         }
         if (from == to) {
-            global.state.tansuo.last = to;
+            state.tansuo.last = to;
             return;
         }
     }
@@ -117,12 +117,12 @@ export class Map extends Scene{
             this.tansuoScrollTo(4);
             sleep(800);
             this.clickButton('map_tansuo_' + level);
-            global.state.tansuo.level = level;
+            state.tansuo.level = level;
         } else {
             this.tansuoScrollTo(level);
             sleep(800);
             this.clickButton('map_tansuo_4');
-            global.state.tansuo.level = level;
+            state.tansuo.level = level;
         }
     }
 
@@ -150,17 +150,17 @@ export class Map extends Scene{
             this.clickButton('map_tupo');
             return;
         }
-        if (this.checkTupoTicket() > global.state.tupo.geren_fight_min_ticket && Date.now() > global.state.tupo.refresh_time) {
+        if (this.checkTupoTicket() > state.tupo.geren_fight_min_ticket && Date.now() > state.tupo.refresh_time) {
             global.logger.info('地图：突破券积攒超过阈值，进入个人突破');
             this.clickButton('map_tupo');
             return;
         }
-        if (Object.keys(global.state.tansuo.setting.list).length != 0) {
+        if (Object.keys(state.tansuo.setting.list).length != 0) {
             sleep(400);
             this.updateCapture();
             if(this.isCurrentScene()){
-                let tansuolevel = Object.keys(global.state.tansuo.setting.list)[0];
-                global.state.tansuo.target = tansuolevel;
+                let tansuolevel = Object.keys(state.tansuo.setting.list)[0];
+                state.tansuo.target = tansuolevel;
                 this.openTanSuo(tansuolevel);
                 return;
             }

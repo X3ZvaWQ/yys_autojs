@@ -201,21 +201,24 @@ export class Scene {
 
     isCurrentScene() {
         if (this.judge_colors.length == 0) {
-            if (global.state.temp.last_scene != 'unknown') {
+            if (state.temp.last_scene != 'unknown') {
                 logger.verbose('当前界面：[unknown]');
-                global.state.temp.last_scene = 'unknown';
+                state.temp.last_scene = 'unknown';
             }
             this.match_tag = null;
             return true;
         }
         for (let color of this.judge_colors) {
             if (this.findColors(color) != null) {
-                if (this.scene_name + '_' + color != global.state.temp.last_scene) {
+                if (this.scene_name + '_' + color != state.temp.last_scene) {
                     logger.verbose('当前界面：[' + this.scene_name + ']' + color);
-                    global.state.temp.last_scene = this.scene_name + '_' + color;
+                    state.temp.last_scene = this.scene_name + '_' + color;
                 }
                 this.match_tag = color;
-                global.state.temp.last_unknown = 0;
+                state.temp.last_unknown = 0;
+                if(this.match_tag != 'home_fold' && this.match_tag != 'home_spread') {
+                    state.temp.home_excute_times = 0;
+                }
                 return true;
             }
         }
@@ -225,9 +228,11 @@ export class Scene {
     timeTo(tag) {
         let judger = {
             liaotili: () => {
+                if(state.switch.liaotili === false) return false;
                 return Date.now() > state.jiejie.last_get_liaotili + 8*60*60*1000;
             },
             liaotu: () => {
+                if(state.switch.liaotu === false) return false;
                 let liaotu_clear = state.tupo.liao_clear;
                 if (liaotu_clear === true || liaotu_clear === false) {
                     state.tupo.liao_clear = 0;
@@ -243,6 +248,7 @@ export class Scene {
                 };
             },
             fengmo: () => {
+                if(state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(17);
                 tmpTime.setMinutes(5);
@@ -250,6 +256,7 @@ export class Scene {
                 return state.fengmo.last_kill_fengmo_boss < tmpTime.getTime() && new Date().getHours() <= 23 && new Date().getHours() >= 17;
             },
             digui: () => {
+                if(state.switch.digui === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(12);
                 tmpTime.setMinutes(0);
@@ -257,11 +264,13 @@ export class Scene {
                 return state.digui.last_kill_digui < tmpTime.getTime() && new Date().getHours() >= 12 && new Date().getHours() <= 23;
             },
             diguiShare: () => {
+                if(state.switch.diguiShare === false) return false;
                 let now_time = new Date();
                 let tmpTime = new Date(now_time.getFullYear(), now_time.getMonth(), now_time.getDate() - (now_time.getDay() == 0 ? 7 : now_time.getDay()) + 1);
                 return state.digui.last_share_digui < tmpTime.getTime();
             },
             friendPoint: () => {
+                if(state.switch.friendPoint === false) return false;
                 if (state.friends.friend_point_send_count >= 20) {
                     state.friends.friend_point_send_count = 0;
                     state.friends.last_send_friend_point = Date.now();
@@ -274,6 +283,7 @@ export class Scene {
                 return state.friends.last_send_friend_point < tmpTime.getTime();
             },
             getBlackEgg: () => {
+                if(state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(0);
                 tmpTime.setMinutes(0);
@@ -281,6 +291,7 @@ export class Scene {
                 return state.global.last_get_free_blackegg < tmpTime.getTime();
             },
             jiyang: () => {
+                if(state.switch.jiyang === false) return false;
                 return Date.now() > state.jiejie.jiyang_end
             }
         };
@@ -328,10 +339,10 @@ export class Scene {
             return;
         }
        
-        if(global.state.temp.last_unknown == 0) {
-            global.state.temp.last_unknown = Date.now();
+        if(state.temp.last_unknown == 0) {
+            state.temp.last_unknown = Date.now();
         };
-        if(global.state.temp.last_unknown != 0 && Date.now() - global.state.temp.last_unknown > 30*1000){
+        if(state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 30*1000){
             if (
                 this.clickIfColorsExist('common_exit_1') ||
                 this.clickIfColorsExist('common_exit_2') ||
@@ -345,9 +356,10 @@ export class Scene {
             this.clickPoint({x: 1, y: 1});
             sleep(2000);
         }
-        if(global.state.temp.last_unknown != 0 && Date.now() - global.state.temp.last_unknown > 180*1000){
+        if(state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 180*1000){
+            state.temp.last_unknown = 0;
             global.logger.warn('未知界面退出失败，尝试重启应用');
-            app.stopPackage(global.state.settings.packageName);
+            app.stopPackage(state.settings.packageName);
         }
     }
 }

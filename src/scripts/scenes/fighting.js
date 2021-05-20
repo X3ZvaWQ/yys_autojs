@@ -130,7 +130,7 @@ export class Fighting extends Scene {
         //战斗准备
         if(this.match_tag == 'fighting_prepare') {
             // 探索准备的时候换狗粮
-            if (global.state.global.fighting == 'tansuo') {
+            if (state.global.fighting == 'tansuo') {
                 if(this.findColors('fighting_prepare_maxlevel_2') || this.findColors('fighting_prepare_maxlevel_3')) {
                     this.clickButton('fighting_exchange');
                     global.logger.info('狗粮更换：发现满级标志，准备更换狗粮');
@@ -138,16 +138,16 @@ export class Fighting extends Scene {
                 }
             }
             //突破掉级
-            if (global.state.global.fighting == 'tupo' && global.state.tupo.geren_demotion) {
+            if (state.global.fighting == 'tupo' && state.tupo.geren_demotion) {
                 this.clickButton('fighting_prepare_exit');
-                global.state.tupo.geren_fight_clicked = false;
-                global.state.tupo.geren_demotion = false;
+                state.tupo.geren_fight_clicked = false;
+                state.tupo.geren_demotion = false;
                 global.logger.info('战斗准备：突破掉级，尝试直接退出战斗');
                 return;
             }
             //防止错判没突破券
-            if (global.state.global.fighting == 'tupo' && global.state.tupo.geren_fight_clicked) {
-                global.state.tupo.geren_fight_clicked = false;
+            if (state.global.fighting == 'tupo' && state.tupo.geren_fight_clicked) {
+                state.tupo.geren_fight_clicked = false;
             }
             this.clickButton('fighting_prepare');
             global.logger.info('战斗准备：点击准备，开始战斗');
@@ -155,7 +155,7 @@ export class Fighting extends Scene {
         }
         //换狗粮
         if(this.match_tag == 'fighting_exchange') {
-            if(global.state.global.fighting == 'douji') {
+            if(state.global.fighting == 'douji') {
                 this.clickButton('fighting_prepare');
                 global.logger.info('战斗准备：点击准备，开始战斗');
                 sleep(random(3000, 5000))
@@ -192,11 +192,11 @@ export class Fighting extends Scene {
         }
         //换狗粮 选素材类型
         if(this.match_tag == 'fighting_exchange_dark') {
-            if(global.state.tansuo.setting.food_priority == 'sucai') {
+            if(state.tansuo.setting.food_priority == 'sucai') {
                 this.clickButton('fighting_exchange_type_sucai');
                 global.logger.info('狗粮更换：根据用户设置, 切换到素材');
                 return;
-            }else if(global.state.tansuo.setting.food_priority == 'n') {
+            }else if(state.tansuo.setting.food_priority == 'n') {
                 this.clickButton('fighting_exchange_type_n');
                 global.logger.info('狗粮更换：根据用户设置, 切换到N卡');
                 return;

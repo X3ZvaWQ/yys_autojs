@@ -47,7 +47,7 @@ export class Activity extends Scene {
     }
 
     execute() {
-        if(global.state.temp.activityTo == 'fengmo') {
+        if(state.temp.activityTo == 'fengmo') {
             this.openActiviey('fengmo');
         }
         

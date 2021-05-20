@@ -158,11 +158,11 @@ export class TuPo extends Scene {
             global.logger.info('个人突破：找到了5勋章呱，挑战之');
             return true;
         }
-        let fight_order = global.state.tupo.setting.geren_order.split('');
+        let fight_order = state.tupo.setting.geren_order.split('');
         for (let medal of fight_order) {
             if (this.clickIfColorsExist('tupo_medal_' + medal)) {
                 global.logger.info('个人突破：找到了 ' + medal + ' 勋章结界，挑战之');
-                global.state.tupo.geren_fight_clicked = false;
+                state.tupo.geren_fight_clicked = false;
                 return true;
             };
         }
@@ -180,21 +180,21 @@ export class TuPo extends Scene {
     }
 
     findLiaoTupoTarget() {
-        let fight_order = global.state.tupo.setting.liao_order.split('');
+        let fight_order = state.tupo.setting.liao_order.split('');
         for (let medal of fight_order) {
             if (this.clickIfColorsExist('tupo_medal_' + medal)) {
                 global.logger.info('寮突破：找到了 ' + medal + ' 勋章结界，挑战之');
-                global.state.tupo.liao_fight_ed = true;
+                state.tupo.liao_fight_ed = true;
                 return true;
             };
         }
         if (this.findColors('tupo_liao_last')) {
-            if (global.state.tupo.liao_fight_ed) {
-                global.state.tupo.liao_clear = Date.now();
-                global.state.tupo.liao_fight_ed = true;
+            if (state.tupo.liao_fight_ed) {
+                state.tupo.liao_clear = Date.now();
+                state.tupo.liao_fight_ed = true;
                 return false;
             }
-            global.state.tupo.liao_fight_ed = false;
+            state.tupo.liao_fight_ed = false;
             //划到最上面，再次搜索;
             global.logger.info('寮突：翻到最后了，尝试从最前面开始找');
             global.automator.swipe([1712, 915], [1712, 12], [0, 0], [0, 0]);
@@ -241,11 +241,11 @@ export class TuPo extends Scene {
                 this.clickButton('tupo_liao');
                 return;
             }
-            if (this.getTupoTicket() <= global.state.tupo.geren_fight_min_ticket) {
+            if (this.getTupoTicket() <= state.tupo.geren_fight_min_ticket) {
                 this.exitOrToLiaoTupo();
                 return;
             }
-            if (global.state.tupo.setting.geren_mode == 'only3') {
+            if (state.tupo.setting.geren_mode == 'only3') {
                 //当个人突破是only3模式的时候检查有没有打三个
                 if (this.findColors('tupo_geren_damo_3') != null) {
                     if (this.clickIfColorsExist('tupo_geren_refresh_button')) {
@@ -254,10 +254,10 @@ export class TuPo extends Scene {
                         return;
                     } else if (this.findTupoTarget()) {
                         //刷新不了，开始掉级
-                        global.state.tupo.geren_demotion = true;
+                        state.tupo.geren_demotion = true;
                         return;
                     } else {
-                        global.state.tupo.refresh_time = Date.now() + 5 * 60 * 1000;
+                        state.tupo.refresh_time = Date.now() + 5 * 60 * 1000;
                         //都打过了，尝试退出或者切换到寮突破
                         this.exitOrToLiaoTupo();
                         return;
@@ -273,7 +273,7 @@ export class TuPo extends Scene {
                 } else {
                     global.logger.info('个人突破：刷新cd没好');
                     let refreshCd = this.checkTupoRefreshCd();
-                    global.state.tupo.refresh_time = Date.now() + refreshCd;
+                    state.tupo.refresh_time = Date.now() + refreshCd;
                     this.exitOrToLiaoTupo();
                     return;
                 }
@@ -286,22 +286,22 @@ export class TuPo extends Scene {
         }
 
         if (this.match_tag == 'tupo_fight_confirm' || this.match_tag == 'tupo_fight_confirm_2') {
-            if (global.state.tupo.geren_fight_clicked) {
+            if (state.tupo.geren_fight_clicked) {
                 global.logger.info('突破：好像没突破券了欸');
-                global.state.tupo.geren_fight_clicked = false;
+                state.tupo.geren_fight_clicked = false;
                 this.clickButton('fighting_victory_confirm');
                 this.clickButton('tupo_exit');
                 return;
             }
             if (this.clickIfColorsExist('tupo_fight_confirm')) {
-                global.state.tupo.geren_fight_clicked = true;
-                global.state.global.fighting = 'tupo';
+                state.tupo.geren_fight_clicked = true;
+                state.global.fighting = 'tupo';
                 global.logger.info('突破：确认进攻结界');
                 return;
             };
             if (this.clickIfColorsExist('tupo_fight_confirm_2')) {
-                global.state.tupo.geren_fight_clicked = true;
-                global.state.global.fighting = 'tupo';
+                state.tupo.geren_fight_clicked = true;
+                state.global.fighting = 'tupo';
                 global.logger.info('突破：确认进攻结界');
                 return;
             };
@@ -320,13 +320,13 @@ export class TuPo extends Scene {
                     }
                 }
             } else {
-                if (global.state.tupo.liao_cd > Date.now()) {
-                    global.logger.info('突破：寮突将会在 ' + ((global.state.tupo.liao_cd - Date.now()) / 1000) + ' 秒后冷却好，到时候再来打');
+                if (state.tupo.liao_cd > Date.now()) {
+                    global.logger.info('突破：寮突将会在 ' + ((state.tupo.liao_cd - Date.now()) / 1000) + ' 秒后冷却好，到时候再来打');
                     this.clickButton('tupo_geren');
                     return;
                 } else {
                     let liaotucd = this.getLiaoTuCd();
-                    global.state.tupo.liao_cd = Date.now() + liaotucd - 30 * 1000;
+                    state.tupo.liao_cd = Date.now() + liaotucd - 30 * 1000;
                     global.logger.info('突破：寮突将会在 ' + liaotucd/1000 + ' 秒后冷却好，到时候再来打');
                     this.clickButton('tupo_geren');
                     return;

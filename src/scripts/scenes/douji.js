@@ -48,7 +48,7 @@ export class DouJi extends Scene {
     execute() {
         if(this.match_tag == 'douji_main') {
             this.clickButton('douji_fight');
-            global.state.global.fighting = 'douji';
+            state.global.fighting = 'douji';
             global.logger.info('斗鸡：战斗！');
         }
 

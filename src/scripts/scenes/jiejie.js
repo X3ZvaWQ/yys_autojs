@@ -210,7 +210,7 @@ export class JieJie extends Scene {
                 this.clickPoint([958, 323]);
                 sleep(2000);
                 this.clickPoint([1656, 446]);
-                global.state.jiejie.last_get_liaotili = Date.now();
+                state.jiejie.last_get_liaotili = Date.now();
                 return;
             }
         }
@@ -259,32 +259,34 @@ export class JieJie extends Scene {
         //寄养
         if(this.match_tag == 'jiejie_feed') {
             if (!this.findColors('jiejie_feed_other')) {
+                sleep(random(1200, 1400))
                 if (this.findColors('jiejie_jiyang_null')) {
                     global.logger.info('寄养，冲！');
                     this.clickButton('jiejie_to_jiyang')
                     sleep(2000);
                     return;
                 } else {
-                    if(global.state.jiejie.jiyang_end < Date.now()) {
-                        global.state.jiejie.jiyang_end = Date.now() + 30*60*1000;
+                    if(state.jiejie.jiyang_end < Date.now()) {
+                        state.jiejie.jiyang_end = Date.now() + 30*60*1000;
                         //这里由于不清楚多久能寄养结束，那个数字的位置很难OCR，就只好30分钟后再来看看了 
                         global.logger.info('寄养：不清楚您的寄养多久结束，30分钟后再回来看看');
                         this.clickButton('jiejie_feed_exit');
                         return;
                     }else{
-                        global.logger.info('寄养：下一轮寄养将会在 ' + (global.state.jiejie.jiyang_end - Date.now())/1000 + ' 秒后继续');
+                        global.logger.info('寄养：下一轮寄养将会在 ' + (state.jiejie.jiyang_end - Date.now())/1000 + ' 秒后继续');
                         this.clickButton('jiejie_feed_exit');
                         return;
                     }
                 }
             } else {
+                sleep(random(1200, 1400))
                 global.logger.info('寄养：自动寄养第一个式神！');
                 this.clickButton('jiejie_feed_first');
                 sleep(random(1200, 1400))
                 global.logger.info('寄养：确认寄养');
                 this.clickButton('jiejie_jiyang_confirm');
                 sleep(random(1200, 1400));
-                global.state.jiejie.jiyang_end = Date.now() + 6 * 60 * 60 * 1000;
+                state.jiejie.jiyang_end = Date.now() + 6 * 60 * 60 * 1000;
                 this.clickButton('jiejie_exit');
                 sleep(random(1200, 1400));
                 this.clickButton('jiejie_exit');
@@ -300,35 +302,35 @@ export class JieJie extends Scene {
             let award = global.ocr.recognize(award_images);
             logger.info('寄养：识别奖励'+award);
             let award_arr = [award.match(/体力\+(\d+)/), award.match(/勾玉\+(\d+)/)];
-            if(global.state.jiejie.jiyang_try_times == 20) {
+            if(state.jiejie.jiyang_try_times == 20) {
                 this.resetJiyangSelect()
-                global.state.jiejie.jiyang_try_times += 1;
+                state.jiejie.jiyang_try_times += 1;
                 return;
             }
-            if(global.state.jiejie.jiyang_force >= 30) {
+            if(state.jiejie.jiyang_force >= 30) {
                 this.resetJiyangSelect()
                 sleep(1000);
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：没啥能选的了，直接第一个吧');
-                global.state.jiejie.jiyang_try_times = 0;
+                state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
                 return;
-            }else if(global.state.jiejie.jiyang_try_times <= 20 && award_arr[0] != null && award_arr[0][1] >= global.state.jiejie.min_jiyang_tili_1
-                || global.state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= global.state.jiejie.min_jiyang_tili_2) {
+            }else if(state.jiejie.jiyang_try_times <= 20 && award_arr[0] != null && award_arr[0][1] >= state.jiejie.min_jiyang_tili_1
+                || state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= state.jiejie.min_jiyang_tili_2) {
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：发现体力结界卡, 尝试进入');
-                global.state.jiejie.jiyang_try_times = 0;
+                state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
                 return;
-            }else if(global.state.jiejie.jiyang_try_times <= 20 && award_arr[1] != null && award_arr[1][1] >= global.state.jiejie.min_jiyang_gouyu_1
-                || global.state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= global.state.jiejie.min_jiyang_gouyu_2) {
+            }else if(state.jiejie.jiyang_try_times <= 20 && award_arr[1] != null && award_arr[1][1] >= state.jiejie.min_jiyang_gouyu_1
+                || state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= state.jiejie.min_jiyang_gouyu_2) {
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：发现勾玉结界卡, 尝试进入');
-                global.state.jiejie.jiyang_try_times = 0;
+                state.jiejie.jiyang_try_times = 0;
                 sleep(2000);
                 return;
             }
-            global.state.jiejie.jiyang_try_times += 1;
+            state.jiejie.jiyang_try_times += 1;
             global.automator.swipe([614, 530], [614, 380], [50, 0], [50, 0]);
             this.clickButton('jiejie_jiyang_select_first');
             sleep(400);

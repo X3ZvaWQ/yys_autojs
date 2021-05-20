@@ -132,9 +132,9 @@ export class TanSuo extends Scene {
             newPoint = this.findColors(newMultiColors);
             if (newPoint != null) {
                 this.clickPoint(newPoint);
-                global.state.tansuo.findCount = 0;
-                global.state.tansuo.fighting = 'normal';
-                global.state.global.fighting = 'tansuo';
+                state.tansuo.findCount = 0;
+                state.tansuo.fighting = 'normal';
+                state.global.fighting = 'tansuo';
                 return true;
             } else {
                 step += 80;
@@ -147,9 +147,9 @@ export class TanSuo extends Scene {
 
     findTanSuoBoss() {
         if(this.clickIfColorsExist('tansuo_fight_boss')){
-            global.state.tansuo.findCount = 0;
-            global.state.tansuo.fighting = 'boss';
-            global.state.global.fighting = 'tansuo';
+            state.tansuo.findCount = 0;
+            state.tansuo.fighting = 'boss';
+            state.global.fighting = 'tansuo';
             return true;
         }
         return false;
@@ -157,30 +157,30 @@ export class TanSuo extends Scene {
 
     findTanSuoNormal() {
         if(this.clickIfColorsExist('tansuo_fight_normal')){
-            global.state.tansuo.findCount = 0;
-            global.state.tansuo.fighting = 'normal';
-            global.state.global.fighting = 'tansuo';
+            state.tansuo.findCount = 0;
+            state.tansuo.fighting = 'normal';
+            state.global.fighting = 'tansuo';
             return true;
         }
         return false;
     }
 
     tanSuoSlide() {
-        if (global.state.tansuo.findCount < 3 && global.state.tansuo.findCount >= 0) {
+        if (state.tansuo.findCount < 3 && state.tansuo.findCount >= 0) {
             global.automator.swipe([random(1600, 1800), random(225, 275)], [random(100, 300), random(225, 275)], undefined, undefined, random(1000, 1200));
             global.logger.verbose('探索场景：没怪了，右划一下');
-            global.state.tansuo.findCount += 1;
-        } else if (global.state.tansuo.findCount >= 3) {
+            state.tansuo.findCount += 1;
+        } else if (state.tansuo.findCount >= 3) {
             global.automator.swipe([random(100, 300), random(225, 275)], [random(1600, 1800), random(225, 275)], undefined, undefined,random(1000, 1200));
             global.logger.verbose('探索场景：右划好像到底了，开始左划');
-            global.state.tansuo.findCount = -1;
-        } else if (global.state.tansuo.findCount < 0 && global.state.tansuo.findCount >= -3) {
+            state.tansuo.findCount = -1;
+        } else if (state.tansuo.findCount < 0 && state.tansuo.findCount >= -3) {
             global.automator.swipe([random(100, 300), random(225, 275)], [random(1600, 1800), random(225, 275)], undefined, undefined,random(1000, 1200));
             global.logger.verbose('探索场景：没怪了，左划一下');
-            global.state.tansuo.findCount -= 1;
+            state.tansuo.findCount -= 1;
         } else {
             global.logger.verbose('探索场景：找不到怪，退出探索');
-            global.state.tansuo.findCount = 0;
+            state.tansuo.findCount = 0;
             this.clickButton('tansuo_scene_exit');
         }
     }
@@ -194,8 +194,8 @@ export class TanSuo extends Scene {
                 this.clickButton('tansuo_prepare_exit');
                 return;
             }
-            if (global.state.tansuo.level != global.state.tansuo.target
-                || Object.keys(global.state.tansuo.setting.list).indexOf(global.state.tansuo.level) == -1) {
+            if (state.tansuo.level != state.tansuo.target
+                || Object.keys(state.tansuo.setting.list).indexOf(state.tansuo.level) == -1) {
                 this.clickButton('tansuo_prepare_exit');
                 return;
             }
@@ -204,17 +204,17 @@ export class TanSuo extends Scene {
                 return;
             }
             this.clickButton('tansuo_start');
-            global.state.tansuo.end = false;
+            state.tansuo.end = false;
             return;
         }
         
         if(this.match_tag == 'tansuo_scene') {
-            if (global.state.tansuo.end) {
+            if (state.tansuo.end) {
                 this.clickButton('tansuo_scene_exit');
                 global.logger.info('探索场景：探索结束，退出探索界面');
                 return;
             };
-            if (global.state.tansuo.setting.mode == 'all_boss_first') {
+            if (state.tansuo.setting.mode == 'all_boss_first') {
                 if (this.findTanSuoBoss()){
                     global.logger.info('探索场景：发现一只Boss，挑战之');
                     return;
@@ -225,7 +225,7 @@ export class TanSuo extends Scene {
                 }
                 this.tanSuoSlide();
                 return;
-            } else if (global.state.tansuo.setting.mode == 'only_damo') {
+            } else if (state.tansuo.setting.mode == 'only_damo') {
                 if (this.findTanSuoBoss()){
                     global.logger.info('探索场景：发现一只Boss，挑战之');
                     return;
@@ -243,7 +243,7 @@ export class TanSuo extends Scene {
         if(this.match_tag == 'tansuo_exit_confirm') {
             this.clickButton('tansuo_scene_exit_confirm');
             global.logger.info('探索场景：确认退出');
-            global.state.tansuo.findCount = 0;
+            state.tansuo.findCount = 0;
         }
         return;
     }
