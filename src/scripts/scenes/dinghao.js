@@ -28,8 +28,8 @@ export class DingHao extends Scene{
             logger.error('顶号：根据设置顶号后不自动重连，退出操作线程');
             threads.currentThread().interrupt();
         }
-        logger.error('顶号：检测到顶号行为，将会在5分钟后重连');
-        sleep(wait_time);
+        logger.error(`顶号：检测到顶号行为，将会在${wait_time / 60}分钟后重连`);
+        sleep(wait_time * 1000);
         this.clickButton('dinghao_reconnection');
     }
 }

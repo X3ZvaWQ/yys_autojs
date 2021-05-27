@@ -4,6 +4,7 @@ export function startThread() {
     return threads.start(function () {
         
         logger.warn('脚本开始运行');
+        sleep(2000);
         while(true) {
             sleep(random(state.settings.min_loop_interval || 600, state.settings.max_loop_interval || 1000));
             //check global switch

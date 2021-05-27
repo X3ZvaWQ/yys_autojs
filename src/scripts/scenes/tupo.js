@@ -113,6 +113,30 @@ export class TuPo extends Scene {
                 "first": "#473f37",
                 "colors": [[18, -9, "#79150f"], [23, 1, "#ffffff"], [28, 4, "#6e2f1f"], [31, 5, "#cccccc"], [32, 7, "#fbfafa"], [34, 9, "#5e3e3e"], [35, 8, "#d4caca"], [36, 7, "#ffffff"], [45, 5, "#561717"]]
             },
+            "geren_level_60": {
+                "region": [240, 263, 45, 36],
+                "desc": "60级",
+                "first": "#595045",
+                "colors": [[-1, 1, "#a9a293"], [-2, 2, "#cac4b3"], [-3, 3, "#e3decc"], [-5, 5, "#eae5d2"], [-6, 10, "#c5bfaf"], [-6, 15, "#7a7265"], [9, 6, "#d0cab9"], [10, 11, "#898173"], [11, 19, "#bdb7a7"], [14, 20, "#8e8779"], [18, 9, "#4f463b"], [20, 11, "#ccc6b5"]]
+            },
+            "geren_level_59": {
+                "region": [239, 262, 45, 36],
+                "desc": "",
+                "first": "#e9e4d1",
+                "colors": [[1, 1, "#90887a"], [1, 5, "#71685c"], [1, 6, "#b4ae9e"], [1, 7, "#cdc7b6"], [0, 7, "#e8e3d1"], [3, 8, "#9b9385"], [6, 8, "#ece7d5"], [18, 0, "#aca696"], [20, 0, "#7a7265"], [21, 9, "#877f72"], [24, 10, "#c6c0af"], [24, 12, "#aca595"], [23, 13, "#857e70"], [23, 15, "#ebe6d4"], [19, 15, "#291f16"], [19, 18, "#e2ddcb"]]
+            },
+            "geren_level_58": {
+                "region":[243,263,40,34],
+                "desc":"",
+                "first":"#5f574b",
+                "colors":[[0,2,"#c6bfaf"],[-3,2,"#cfc9b8"],[-4,2,"#e9e4d1"],[-5,9,"#e6e1cf"],[-1,10,"#9b9385"],[2,10,"#ece7d5"],[3,13,"#a0998a"],[4,13,"#ede8d5"],[16,10,"#f2edda"],[16,9,"#a49d8e"],[17,8,"#5d5449"],[20,5,"#a29b8c"],[21,5,"#e6e0ce"],[21,16,"#afa898"],[16,20,"#847c6f"],[12,18,"#d1ccba"],[11,15,"#d0cab9"],[11,5,"#b5ae9f"]]
+            },
+            "geren_level_57": {
+                "region":[242,263,40,34],
+                "desc":"",
+                "first":"#ede8d5",
+                "colors":[[1,-1,"#a19a8b"],[6,-2,"#867e70"],[7,-1,"#bdb6a6"],[6,8,"#e8e2d0"],[3,8,"#979081"],[-2,17,"#e0dac9"],[2,17,"#787063"],[17,1,"#d7d2c0"],[21,1,"#8c8577"],[22,6,"#817a6c"],[21,12,"#d0cab9"],[20,15,"#efe9d7"],[18,17,"#aaa394"],[25,6,"#71695c"],[26,-1,"#5e564a"]]
+            }
         };
         this.buttons = {
             "tupo_exit": {
@@ -147,7 +171,7 @@ export class TuPo extends Scene {
             },
             "fighting_victory_confirm": {
                 "center": [951, 1040],
-                "offset": [200,30],
+                "offset": [200, 30],
                 "desc": "战斗结束的时候点屏幕继续。"
             },
         }
@@ -241,9 +265,17 @@ export class TuPo extends Scene {
                 this.clickButton('tupo_liao');
                 return;
             }
-            if (this.getTupoTicket() <= state.tupo.geren_fight_min_ticket) {
+            if (this.getTupoTicket() == 0) {
                 this.exitOrToLiaoTupo();
                 return;
+            }
+            if(this.findColors('geren_level_57')) {
+                global.logger.warn('个人突破：掉级到了57，切换到全打模式');
+                state.tupo.setting.geren_mode = 'all';
+            }
+            if(this.findColors('geren_level_59') || this.findColors('geren_level_60')) {
+                global.logger.warn('个人突破：打到了59级或者以上，切换到只打三个模式');
+                state.tupo.setting.geren_mode = 'only3';
             }
             if (state.tupo.setting.geren_mode == 'only3') {
                 //当个人突破是only3模式的时候检查有没有打三个
@@ -272,7 +304,7 @@ export class TuPo extends Scene {
                     return;
                 } else {
                     global.logger.info('个人突破：刷新cd没好');
-                    let refreshCd = this.checkTupoRefreshCd();
+                    let refreshCd = 5 * 60 * 1000;
                     state.tupo.refresh_time = Date.now() + refreshCd;
                     this.exitOrToLiaoTupo();
                     return;
@@ -307,7 +339,13 @@ export class TuPo extends Scene {
             };
         }
 
-        if(this.match_tag == 'tupo_liao_interface') {
+        if (this.match_tag == 'tupo_liao_interface') {
+            if (this.findColors('tupo_liao_close')) {
+                state.tupo.liao_cd = Date.now() + 30 * 60 * 1000;
+                logger.info('寮突还没开，半个小时后再来看看');
+                this.clickButton('tupo_geren');
+                return;
+            }
             let liaotu_times = this.getLiaoTuTimes();
             if (liaotu_times > 0) {
                 if (this.findLiaoTupoTarget()) {
@@ -327,7 +365,7 @@ export class TuPo extends Scene {
                 } else {
                     let liaotucd = this.getLiaoTuCd();
                     state.tupo.liao_cd = Date.now() + liaotucd - 30 * 1000;
-                    global.logger.info('突破：寮突将会在 ' + liaotucd/1000 + ' 秒后冷却好，到时候再来打');
+                    global.logger.info('突破：寮突将会在 ' + liaotucd / 1000 + ' 秒后冷却好，到时候再来打');
                     this.clickButton('tupo_geren');
                     return;
                 }

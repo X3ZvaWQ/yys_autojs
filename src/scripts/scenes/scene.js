@@ -278,7 +278,7 @@ export class Scene {
                 }
                 let tmpTime = new Date();
                 tmpTime.setHours(0);
-                tmpTime.setMinutes(0);
+                tmpTime.setMinutes(5);
                 tmpTime.setSeconds(0);
                 return state.friends.last_send_friend_point < tmpTime.getTime();
             },
@@ -286,7 +286,7 @@ export class Scene {
                 if(state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(0);
-                tmpTime.setMinutes(0);
+                tmpTime.setMinutes(5);
                 tmpTime.setSeconds(0);
                 return state.global.last_get_free_blackegg < tmpTime.getTime();
             },

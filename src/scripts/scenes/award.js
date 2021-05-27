@@ -36,6 +36,7 @@ export class Award extends Scene {
 
     execute() {
         global.logger.info('奖励：确定领取奖励')
+        sleep(400);
         this.clickButton('fighting_victory_confirm');
     }
 }

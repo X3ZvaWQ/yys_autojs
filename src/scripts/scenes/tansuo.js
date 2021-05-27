@@ -217,10 +217,12 @@ export class TanSuo extends Scene {
             if (state.tansuo.setting.mode == 'all_boss_first') {
                 if (this.findTanSuoBoss()){
                     global.logger.info('探索场景：发现一只Boss，挑战之');
+                    sleep(500);
                     return;
                 }
                 if (this.findTanSuoNormal()){
                     global.logger.info('探索场景：发现一只小怪，挑战之');
+                    sleep(500);
                     return;
                 }
                 this.tanSuoSlide();
@@ -228,10 +230,12 @@ export class TanSuo extends Scene {
             } else if (state.tansuo.setting.mode == 'only_damo') {
                 if (this.findTanSuoBoss()){
                     global.logger.info('探索场景：发现一只Boss，挑战之');
+                    sleep(500);
                     return;
                 }
                 if (this.findMonsterByTag('damo')){
                     global.logger.info('探索场景：发现一只达摩怪，挑战之');
+                    sleep(500);
                     return;
                 }
                 this.tanSuoSlide();

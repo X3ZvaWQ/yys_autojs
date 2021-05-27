@@ -88,6 +88,7 @@ export class Home extends Scene {
         global.automator.swipe([1678, 813], [65, 827]);
         sleep(800);
         this.clickButton('home_tansuo');
+        sleep(1200);
     }
 
     execute() {

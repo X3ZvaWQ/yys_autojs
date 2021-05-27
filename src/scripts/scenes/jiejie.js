@@ -323,7 +323,7 @@ export class JieJie extends Scene {
                 sleep(2000);
                 return;
             }else if(state.jiejie.jiyang_try_times <= 20 && award_arr[1] != null && award_arr[1][1] >= state.jiejie.min_jiyang_gouyu_1
-                || state.jiejie.jiyang_try_times > 20 && award_arr[0] != null && award_arr[0][1] >= state.jiejie.min_jiyang_gouyu_2) {
+                || state.jiejie.jiyang_try_times > 20 && award_arr[1] != null && award_arr[1][1] >= state.jiejie.min_jiyang_gouyu_2) {
                 this.clickButton('jiejie_jiyang_select_enter');
                 global.logger.info('寄养：发现勾玉结界卡, 尝试进入');
                 state.jiejie.jiyang_try_times = 0;

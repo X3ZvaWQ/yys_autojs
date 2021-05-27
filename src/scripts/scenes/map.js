@@ -162,6 +162,7 @@ export class Map extends Scene{
                 let tansuolevel = Object.keys(state.tansuo.setting.list)[0];
                 state.tansuo.target = tansuolevel;
                 this.openTanSuo(tansuolevel);
+                sleep(2000);
                 return;
             }
         }
