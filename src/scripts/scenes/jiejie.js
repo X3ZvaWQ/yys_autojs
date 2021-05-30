@@ -217,10 +217,10 @@ export class JieJie extends Scene {
 
         //结界
         if(this.match_tag == 'jiejie'){
-            if(this.clickIfColorsExist('jiejie_tilishihe_tip_1') || this.clickIfColorsExist('jiejie_tilishihe_tip')){
+            /* if(this.clickIfColorsExist('jiejie_tilishihe_tip_1') || this.clickIfColorsExist('jiejie_tilishihe_tip')){
                 logger.info('结界：体力食盒可以领了，打开体力食盒');
                 return;
-            }
+            } */
 
             this.clickButton('jiejie_jiyang_get');
             sleep(random(1200, 1400));
