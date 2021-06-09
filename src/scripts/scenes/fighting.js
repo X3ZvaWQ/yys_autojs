@@ -127,6 +127,8 @@ export class Fighting extends Scene {
     execute() {
         //战斗中
         if (this.match_tag == 'fighting') {
+            sleep(2000);
+            this.updateCapture();
             if (this.clickIfColorsExist('fighting_manual')) {
                 global.logger.info('切换自动战斗');
             }

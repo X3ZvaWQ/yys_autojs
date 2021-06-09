@@ -23,8 +23,13 @@ export class Disconnection extends Scene {
     }
 
     execute() {
-        global.logger.info('掉线：5s后重连...')
-        sleep(5000);
-        this.clickButton('reconnect_confirm');
+        if(this.timeTo('reconnect')) {
+            global.logger.info('掉线：5s后重连...')
+            sleep(5000);
+            this.clickButton('reconnect_confirm');
+        }else{
+            global.logger.info('掉线：非重连时间，等待5min后再试...');
+            sleep(5*60*1000);
+        }
     }
 }

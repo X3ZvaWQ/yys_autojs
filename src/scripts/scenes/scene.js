@@ -69,34 +69,34 @@ export class Scene {
                 colors: [[-3, 9, "#5f3819"], [13, 20, "#d4ae6e"], [37, 18, "#d6bc75"], [51, 23, "#d5ad6f"], [140, -6, "#debe7f"], [168, -13, "#dec085"], [173, -4, "#613a13"], [234, 12, "#d5ae74"], [239, 20, "#6e3818"], [252, 31, "#dab36c"], [385, -2, "#5f391a"], [390, -13, "#d8bc80"], [412, -17, "#dabd82"]]
             },
             "common_exit_1": {
-                "region":[5,1,535,173],
-                "desc":"通用退出按钮1",
-                "first":"#c1d1f1",
-                "colors":[[0,2,"#7a93d9"],[2,4,"#4462c5"],[6,5,"#4556a6"],[8,7,"#528099"],[-3,12,"#4466cc"],[-4,23,"#c5c6e7"],[-5,41,"#3355cc"],[-18,36,"#4a63c6"],[-13,41,"#9cadcf"]]
+                "region": [5, 1, 535, 173],
+                "desc": "通用退出按钮1",
+                "first": "#c1d1f1",
+                "colors": [[0, 2, "#7a93d9"], [2, 4, "#4462c5"], [6, 5, "#4556a6"], [8, 7, "#528099"], [-3, 12, "#4466cc"], [-4, 23, "#c5c6e7"], [-5, 41, "#3355cc"], [-18, 36, "#4a63c6"], [-13, 41, "#9cadcf"]]
             },
             "common_exit_2": {
-                "region":[5,1,535,173],
-                "desc":"通用退出按钮2",
-                "first":"#f3e09c",
-                "colors":[[3,3,"#e3b66f"],[5,5,"#c08f4e"],[16,8,"#9c6b40"],[10,14,"#bb8347"],[8,15,"#bf8b49"],[7,18,"#f2e19d"],[-1,16,"#efdc9a"],[-28,6,"#b48352"],[-34,7,"#895f3d"]]
+                "region": [5, 1, 535, 173],
+                "desc": "通用退出按钮2",
+                "first": "#f3e09c",
+                "colors": [[3, 3, "#e3b66f"], [5, 5, "#c08f4e"], [16, 8, "#9c6b40"], [10, 14, "#bb8347"], [8, 15, "#bf8b49"], [7, 18, "#f2e19d"], [-1, 16, "#efdc9a"], [-28, 6, "#b48352"], [-34, 7, "#895f3d"]]
             },
             "common_exit_3": {
-                "region":[5,1,535,173],
-                "desc":"",
-                "first":"#f2e1ae",
-                "colors":[[5,1,"#e8a45b"],[14,1,"#c8833f"],[32,-4,"#302216"],[-15,-22,"#392b24"],[-8,-11,"#ab793b"],[-4,-8,"#fbeab2"],[-22,19,"#2e2019"],[-5,9,"#fbe8ae"],[6,1,"#de9a46"]]
+                "region": [5, 1, 535, 173],
+                "desc": "",
+                "first": "#f2e1ae",
+                "colors": [[5, 1, "#e8a45b"], [14, 1, "#c8833f"], [32, -4, "#302216"], [-15, -22, "#392b24"], [-8, -11, "#ab793b"], [-4, -8, "#fbeab2"], [-22, 19, "#2e2019"], [-5, 9, "#fbe8ae"], [6, 1, "#de9a46"]]
             },
             "common_exit_4": {
-                "region":[5,1,535,217],
-                "desc":"",
-                "first":"#ecf4fc",
-                "colors":[[18,-3,"#324b95"],[22,-10,"#2e4095"],[28,2,"#333b7d"],[18,10,"#7587db"],[20,13,"#b2c2f3"],[24,11,"#2836a2"],[7,27,"#4d6fde"],[-1,26,"#c7d8fa"],[-21,-17,"#2f1f80"]]
+                "region": [5, 1, 535, 217],
+                "desc": "",
+                "first": "#ecf4fc",
+                "colors": [[18, -3, "#324b95"], [22, -10, "#2e4095"], [28, 2, "#333b7d"], [18, 10, "#7587db"], [20, 13, "#b2c2f3"], [24, 11, "#2836a2"], [7, 27, "#4d6fde"], [-1, 26, "#c7d8fa"], [-21, -17, "#2f1f80"]]
             },
             "common_exit_5": {
-                "region":[995,6,919,464],
-                "desc":"",
-                "first":"#edcfcf",
-                "colors":[[43,28,"#e680dd"],[16,-34,"#ee9dec"],[-10,19,"#e69191"],[-10,11,"#f1cfcf"],[8,7,"#dc8795"],[12,9,"#dc8787"],[-21,-16,"#fbc2d1"],[-14,-4,"#d1758a"],[19,-2,"#b94286"]]
+                "region": [995, 6, 919, 464],
+                "desc": "",
+                "first": "#edcfcf",
+                "colors": [[43, 28, "#e680dd"], [16, -34, "#ee9dec"], [-10, 19, "#e69191"], [-10, 11, "#f1cfcf"], [8, 7, "#dc8795"], [12, 9, "#dc8787"], [-21, -16, "#fbc2d1"], [-14, -4, "#d1758a"], [19, -2, "#b94286"]]
             }
         };
         this.buttons = {
@@ -156,6 +156,7 @@ export class Scene {
     //common function for any scenes
     clickPoint(point, offset) {
         global.automator.press(point.x || point[0], point.y || point[1], offset);
+        sleep(random(state.settings.min_click_interval || 400, state.settings.max_click_interval || 600))
         return true;
     }
 
@@ -216,7 +217,7 @@ export class Scene {
                 }
                 this.match_tag = color;
                 state.temp.last_unknown = 0;
-                if(this.match_tag != 'home_fold' && this.match_tag != 'home_spread') {
+                if (this.match_tag != 'home_fold' && this.match_tag != 'home_spread') {
                     state.temp.home_excute_times = 0;
                 }
                 return true;
@@ -228,11 +229,11 @@ export class Scene {
     timeTo(tag) {
         let judger = {
             liaotili: () => {
-                if(state.switch.liaotili === false) return false;
-                return Date.now() > state.jiejie.last_get_liaotili + 8*60*60*1000;
+                if (state.switch.liaotili === false) return false;
+                return Date.now() > state.jiejie.last_get_liaotili + 8 * 60 * 60 * 1000;
             },
             liaotu: () => {
-                if(state.switch.liaotu === false) return false;
+                if (state.switch.liaotu === false) return false;
                 let liaotu_clear = state.tupo.liao_clear;
                 if (liaotu_clear === true || liaotu_clear === false) {
                     state.tupo.liao_clear = 0;
@@ -248,7 +249,7 @@ export class Scene {
                 };
             },
             fengmo: () => {
-                if(state.switch.fengmo === false) return false;
+                if (state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(17);
                 tmpTime.setMinutes(5);
@@ -256,7 +257,7 @@ export class Scene {
                 return state.fengmo.last_kill_fengmo_boss < tmpTime.getTime() && new Date().getHours() <= 23 && new Date().getHours() >= 17;
             },
             digui: () => {
-                if(state.switch.digui === false) return false;
+                if (state.switch.digui === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(12);
                 tmpTime.setMinutes(0);
@@ -264,13 +265,13 @@ export class Scene {
                 return state.digui.last_kill_digui < tmpTime.getTime() && new Date().getHours() >= 12 && new Date().getHours() <= 23;
             },
             diguiShare: () => {
-                if(state.switch.diguiShare === false) return false;
+                if (state.switch.diguiShare === false) return false;
                 let now_time = new Date();
                 let tmpTime = new Date(now_time.getFullYear(), now_time.getMonth(), now_time.getDate() - (now_time.getDay() == 0 ? 7 : now_time.getDay()) + 1);
                 return state.digui.last_share_digui < tmpTime.getTime();
             },
             friendPoint: () => {
-                if(state.switch.friendPoint === false) return false;
+                if (state.switch.friendPoint === false) return false;
                 if (state.friends.friend_point_send_count >= 20) {
                     state.friends.friend_point_send_count = 0;
                     state.friends.last_send_friend_point = Date.now();
@@ -283,7 +284,7 @@ export class Scene {
                 return state.friends.last_send_friend_point < tmpTime.getTime();
             },
             getBlackEgg: () => {
-                if(state.switch.fengmo === false) return false;
+                if (state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(0);
                 tmpTime.setMinutes(5);
@@ -291,8 +292,29 @@ export class Scene {
                 return state.global.last_get_free_blackegg < tmpTime.getTime();
             },
             jiyang: () => {
-                if(state.switch.jiyang === false) return false;
+                if (state.switch.jiyang === false) return false;
                 return Date.now() > state.jiejie.jiyang_end
+            },
+            reconnect: () => {
+                if(state.settings.reconnect_mode == 'only') {
+                    return true;
+                }
+                if(state.settings.reconnect_mode == 'no') {
+                    return false;
+                }
+                if(state.settings.reconnect_mode == 'campus-net') {
+                    let time = new Date();
+                    let checkHours = time.getHours() + 1;
+                    //是否在7：10 - 23：00可上网期间
+                    if(checkHours <= 24 && (checkHours >= 9 || checkHours >= 8 && time.getMinutes() >= 10)) {
+                        return true;
+                    }
+                    //是否是周五周六不断网期间
+                    if(time.getDay() == 5 || time.getDay() == 6){
+                        return true;
+                    }
+                    return false;
+                }
             }
         };
 
@@ -338,11 +360,11 @@ export class Scene {
             this.clickButton('sell_2_exit');
             return;
         }
-       
-        if(state.temp.last_unknown == 0) {
+
+        if (state.temp.last_unknown == 0) {
             state.temp.last_unknown = Date.now();
         };
-        if(state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 30*1000){
+        if (state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 30 * 1000) {
             if (
                 this.clickIfColorsExist('common_exit_1') ||
                 this.clickIfColorsExist('common_exit_2') ||
@@ -353,10 +375,10 @@ export class Scene {
                 global.logger.verbose('未知界面：尝试退出');
                 return;
             }
-            this.clickPoint({x: 1, y: 1});
+            this.clickPoint({ x: 1, y: 1 });
             sleep(2000);
         }
-        if(state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 180*1000){
+        if (state.temp.last_unknown != 0 && Date.now() - state.temp.last_unknown > 180 * 1000) {
             state.temp.last_unknown = 0;
             global.logger.warn('未知界面退出失败，尝试重启应用');
             app.stopPackage(state.settings.packageName);

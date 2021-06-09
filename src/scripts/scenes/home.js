@@ -71,6 +71,11 @@ export class Home extends Scene {
                 "offset": [50, 50],
                 "desc": "从庭院前往探索"
             },
+            "home_huodong": {
+                "center": [1067, 264], 
+                "offset": [50, 50],
+                "desc": "从庭院前往活动"
+            },
             "home_xianshi": {
                 "center": [384, 944], 
                 "offset": [50, 50],
@@ -91,12 +96,23 @@ export class Home extends Scene {
         sleep(1200);
     }
 
+    goToHuoDong() {
+        global.automator.swipe([1678, 813], [65, 827]);
+        sleep(800);
+        this.clickButton('home_huodong');
+        sleep(1200);
+    }
+
     execute() {
         state.temp.home_excute_times += 1;
         if(state.temp.home_excute_times >= 12) {
             global.logger.warn('游戏疑似卡死在首页，尝试重启游戏');
             app.stopPackage(state.settings.packageName);
             state.temp.home_excute_times = 0;
+            return;
+        }
+        if(state.settings.mode == 'hd'){
+            this.goToHuoDong();
             return;
         }
         if (this.clickIfColorsExist('free_sushi')){

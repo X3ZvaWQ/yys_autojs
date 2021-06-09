@@ -222,12 +222,12 @@ export class JieJie extends Scene {
                 return;
             } */
 
-            this.clickButton('jiejie_jiyang_get');
+            /* this.clickButton('jiejie_jiyang_get');
             sleep(random(1200, 1400));
             this.updateCapture();
             if(this.findColors('award')) {
                 return;
-            }
+            } */
 
             if(this.timeTo('jiyang')) {
                 this.clickButton('jiejie_feed')

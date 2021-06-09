@@ -18,8 +18,10 @@ import { Store } from './store';
 import { Map } from './map';
 import { FengMo } from './fengmo';
 import { Friend } from './friend';
+import { HD_TMGL_END } from './hd_tmgy_end';
 
 const scenes = [
+    new HD_TMGL_END(),
     new Award(),
     new Activity(),
     new Digui(),
