@@ -19,9 +19,11 @@ import { Map } from './map';
 import { FengMo } from './fengmo';
 import { Friend } from './friend';
 import { HD_TMGL_END } from './hd_tmgy_end';
+import { Team } from './team';
 
 const scenes = [
     new HD_TMGL_END(),
+    new Team(),
     new Award(),
     new Activity(),
     new Digui(),

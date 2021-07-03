@@ -205,8 +205,14 @@ export class Scene {
             if (state.temp.last_scene != 'unknown') {
                 logger.verbose('当前界面：[unknown]');
                 state.temp.last_scene = 'unknown';
+                state.temp.last_scene_change = Date.now();
             }
             this.match_tag = null;
+            if(this.timeTo('reconnect') && state.temp.last_scene.substr(0, 4) != 'home' && Date.now() - state.temp.last_scene_change > (state.settings.max_scene_away_allow*1000 || 3*60*1000)) {
+                global.logger.warn(`错误：在${state.temp.last_scene}卡顿超过3分钟，尝试重启应用`);
+                state.temp.last_scene_change = Date.now();
+                app.stopPackage(state.settings.packageName);
+            }
             return true;
         }
         for (let color of this.judge_colors) {
@@ -214,8 +220,14 @@ export class Scene {
                 if (this.scene_name + '_' + color != state.temp.last_scene) {
                     logger.verbose('当前界面：[' + this.scene_name + ']' + color);
                     state.temp.last_scene = this.scene_name + '_' + color;
+                    state.temp.last_scene_change = Date.now();
                 }
                 this.match_tag = color;
+                if(this.timeTo('reconnect') && state.temp.last_scene.substr(0, 4) != 'home' && Date.now() - state.temp.last_scene_change > (state.settings.max_scene_away_allow*1000 || 3*60*1000)) {
+                    global.logger.warn(`错误：在${state.temp.last_scene}卡顿超过3分钟，尝试重启应用`);
+                    state.temp.last_scene_change = Date.now();
+                    app.stopPackage(state.settings.packageName);
+                }
                 state.temp.last_unknown = 0;
                 if (this.match_tag != 'home_fold' && this.match_tag != 'home_spread') {
                     state.temp.home_excute_times = 0;
@@ -306,11 +318,11 @@ export class Scene {
                     let time = new Date();
                     let checkHours = time.getHours() + 1;
                     //是否在7：10 - 23：00可上网期间
-                    if(checkHours <= 24 && (checkHours >= 9 || checkHours >= 8 && time.getMinutes() >= 10)) {
+                    if(checkHours <= 23 && (checkHours >= 9 || checkHours >= 8 && time.getMinutes() >= 10)) {
                         return true;
                     }
                     //是否是周五周六不断网期间
-                    if(time.getDay() == 5 || time.getDay() == 6){
+                    if(time.getDay() == 5 && time.getHours() >= 23 || time.getDay() == 0 && time.getHours() < 23 || time.getDay() == 6){
                         return true;
                     }
                     return false;

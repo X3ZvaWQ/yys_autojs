@@ -71,6 +71,11 @@ export class Home extends Scene {
                 "offset": [50, 50],
                 "desc": "从庭院前往探索"
             },
+            "home_team": {
+                "center": [577, 954], 
+                "offset": [50, 50],
+                "desc": "庭院组队按钮"
+            },
             "home_huodong": {
                 "center": [1067, 264], 
                 "offset": [50, 50],

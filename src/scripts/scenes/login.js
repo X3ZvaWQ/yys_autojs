@@ -30,7 +30,9 @@ export class Login extends Scene {
 
     execute() {
         sleep(5000);
-        global.logger.info('登陆：进入游戏')
-        this.clickButton('enter_game');
+        if(this.timeTo('reconnect')) {
+            global.logger.info('登陆：进入游戏')
+            this.clickButton('enter_game');
+        }
     }
 }

@@ -4,13 +4,19 @@ export class Fought extends Scene {
     constructor() {
         super();
         this.scene_name = 'fought';
-        this.judge_colors = ['fighting_victory_settle', 'fighting_victory_settle_1', 'fighting_failed_settle'];
+        this.judge_colors = ['fighting_victory_settle', 'fighting_victory_settle_1', 'fighting_victory_settle_2', 'fighting_failed_settle'];
         this.colors = {
             "fighting_victory_settle": {
                 "region":[294,67,1267,432],
                 "desc":"战斗结算界面的红鼓",
                 "first":"#cfc0aa",
                 "colors":[[0,-11,"#c9b8a7"],[2,-13,"#be8070"],[2,-14,"#a85342"],[2,-15,"#85301f"],[2,-17,"#822018"],[15,-6,"#ccbbaa"],[17,-6,"#be9281"],[18,-6,"#ac7261"],[20,-6,"#8e3524"]]
+            },
+            "fighting_victory_settle_2": {
+                "region":[333,9,765,402],
+                "desc":"",
+                "first":"#ccbbaa",
+                "colors":[[4,-35,"#841a10"],[-29,19,"#941b10"],[35,16,"#901a10"],[1,49,"#d5c6ae"],[-73,-21,"#ccaa99"],[51,-36,"#c7b59e"],[66,-51,"#7c1910"],[-72,-39,"#7f1910"],[-17,74,"#cb2314"]]
             },
             "fighting_victory_settle_1": {
                 "region":[62,941,103,94],
@@ -36,7 +42,7 @@ export class Fought extends Scene {
 
     execute() {
         //胜利
-        if(this.match_tag == 'fighting_victory_settle' || this.match_tag == 'fighting_victory_settle_1') {
+        if(this.match_tag == 'fighting_victory_settle' || this.match_tag == 'fighting_victory_settle_1'|| this.match_tag == 'fighting_victory_settle_2') {
             this.clickButton('fought_confirm');
             //统计击杀次数
             if (state.global.fighting == 'tansuo' && state.tansuo.fighting == 'boss') {
@@ -58,6 +64,9 @@ export class Fought extends Scene {
             //记录 封魔boss 已经击杀过了（
             if (state.global.fighting == 'fengmo') {
                 state.fengmo.last_kill_fengmo_boss = Date.now();
+            }
+            if(state.global.fighting == 'digui') {
+                state.digui.last_kill_digui = Date.now();
             }
             return;
         }

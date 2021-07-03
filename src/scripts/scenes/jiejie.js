@@ -66,6 +66,11 @@ export class JieJie extends Scene {
                 "first":"#151210",
                 "colors":[[0,-1,"#25201b"],[2,-4,"#18130e"],[2,-9,"#241c18"],[-50,11,"#130c0a"],[-41,20,"#0e0a07"],[0,17,"#0b0806"],[60,12,"#15100b"],[158,-2,"#1c1712"],[-129,-2,"#1d1813"]]
             },
+            "jiejie_feed_own": {
+                "region":[1592,81,57,149],
+                "desc":"判断是不是在别ziji的结界里",
+                "first":"#f0f0ef",
+                "colors":[[0,-6,"#5f5851"],[-4,-9,"#9b9692"],[-5,-10,"#f1f0f0"],[-12,-11,"#87817c"],[-12,-7,"#f3f2f2"],[-2,14,"#2a1a10"],[-2,18,"#e4e3e2"],[-2,20,"#5c544e"],[-5,30,"#2c231a"],[-9,28,"#f8f7f7"],[-17,37,"#30261e"]]},
             "award": {
                 "region":[450,228,1069,571],
                 "desc":"通用获得奖励",
@@ -258,7 +263,7 @@ export class JieJie extends Scene {
         
         //寄养
         if(this.match_tag == 'jiejie_feed') {
-            if (!this.findColors('jiejie_feed_other')) {
+            if (this.findColors('jiejie_feed_own')) {
                 sleep(random(1200, 1400))
                 if (this.findColors('jiejie_jiyang_null')) {
                     global.logger.info('寄养，冲！');

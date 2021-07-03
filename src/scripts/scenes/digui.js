@@ -69,7 +69,7 @@ export class Digui extends Scene {
             },
             "digui_hot": {
                 "center": [1822, 686],
-                "offset": [30, 80],
+                "offset": [30, 30],
                 "desc": "地域鬼王筛选按钮之后的热门"
             },
             "digui_prepare_exit": {
