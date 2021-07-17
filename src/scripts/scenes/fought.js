@@ -61,10 +61,15 @@ export class Fought extends Scene {
                     };
                 }
             }
+            //阴界之门
+            if( state.global.fighting == 'yinjie'){
+                state.global.last_kill_yinjie = Date.now();
+            }
             //记录 封魔boss 已经击杀过了（
             if (state.global.fighting == 'fengmo') {
                 state.fengmo.last_kill_fengmo_boss = Date.now();
             }
+            //地域鬼王
             if(state.global.fighting == 'digui') {
                 state.digui.last_kill_digui = Date.now();
             }

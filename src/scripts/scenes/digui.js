@@ -59,6 +59,12 @@ export class Digui extends Scene {
                 "desc":"地鬼 分享界面",
                 "first":"#f5f0dd",
                 "colors":[[7,1,"#2d231a"],[19,4,"#714738"],[31,-2,"#c2bcab"],[29,12,"#a9a293"],[36,11,"#291d13"],[40,1,"#c9c3b2"],[46,4,"#231910"],[53,9,"#6e4637"],[67,4,"#beb8a8"]]
+            },
+            "digui_null": {
+                "region":[868,603,880,104],
+                "desc":"",
+                "first":"#282521",
+                "colors":[[0,3,"#d7d2c2"],[-9,6,"#f4efdd"],[-10,1,"#282521"],[-4,-6,"#f8f3e0"],[-1,-8,"#757168"],[6,-4,"#66625a"],[10,-1,"#5a564f"],[16,5,"#f19f11"],[16,3,"#dd6c03"],[27,-1,"#c64f00"]]
             }
         };
         this.buttons = {
@@ -67,10 +73,10 @@ export class Digui extends Scene {
                 "offset": [30, 30],
                 "desc": "地域鬼王 右上角 筛选按钮"
             },
-            "digui_hot": {
-                "center": [1822, 686],
+            "digui_love": {
+                "center": [1819, 869],
                 "offset": [30, 30],
-                "desc": "地域鬼王筛选按钮之后的热门"
+                "desc": "地域鬼王筛选按钮之后的收藏"
             },
             "digui_prepare_exit": {
                 "center": [1737, 109],
@@ -125,8 +131,9 @@ export class Digui extends Scene {
         if(this.match_tag == 'digui_interface') {
             if (this.timeTo('digui')) {
                 this.clickButton('digui_filter');
-                sleep(1200);
-                this.clickButton('digui_hot');
+                sleep(random(1200, 1600));
+                this.clickButton('digui_love');
+                sleep(random(1200, 1600));
                 return;
             } else {
                 this.clickButton('digui_exit');
@@ -150,40 +157,40 @@ export class Digui extends Scene {
                 sleep(3000);
                 this.updateCapture();
             }
-            if (this.findColors('digui_damo_common') != null) {
+            if(this.findColors('digui_null')) {
                 global.automator.swipe([644, 445], [644 - 460, 445], [0,0], [0, 30]);
                 sleep(200);
                 this.clickButton('digui_fight');
                 global.logger.info('地域鬼王：开始战斗');
                 state.global.fighting = 'digui';
                 return;
-            } else if (this.findColors('digui_damo_end_3') != null) {
-                state.digui.last_kill_digui = Date.now();
-                if(this.timeTo('diguiShare')){
-                    this.clickButton('digui_share');
-                    global.logger.info('地域鬼王：准备每周分享');
-                    return;
-                }
-                this.clickButton('digui_prepare_exit');
-                global.logger.info('地域鬼王：击杀结束，退出界面');
+            }/* 
+            if (this.findColors('digui_damo_end_3') != null) { */
+            state.digui.last_kill_digui = Date.now();
+            if(this.timeTo('diguiShare')){
+                this.clickButton('digui_share');
+                global.logger.info('地域鬼王：准备每周分享');
                 return;
-            } else {
-                if (this.findColors('digui_damo_end_1') == null) {
-                    this.clickButton('digui_award1');
-                    global.logger.info('地域鬼王：领取第一个奖励');
-                    return;
-                }
-                if (this.findColors('digui_damo_end_2') == null) {
-                    this.clickButton('digui_award2');
-                    global.logger.info('地域鬼王：领取第二个奖励');
-                    return;
-                }
-                if (this.findColors('digui_damo_end_3') == null) {
-                    this.clickButton('digui_award3');
-                    global.logger.info('地域鬼王：领取第三个奖励');
-                    return;
-                }
             }
+            /* if (this.findColors('digui_damo_end_1') == null) {
+                this.clickButton('digui_award1');
+                global.logger.info('地域鬼王：领取第一个奖励');
+                return;
+            }
+            if (this.findColors('digui_damo_end_2') == null) {
+                this.clickButton('digui_award2');
+                global.logger.info('地域鬼王：领取第二个奖励');
+                return;
+            }
+            if (this.findColors('digui_damo_end_3') == null) {
+                this.clickButton('digui_award3');
+                global.logger.info('地域鬼王：领取第三个奖励');
+                return;
+            } */
+            this.clickButton('digui_prepare_exit');
+            global.logger.info('地域鬼王：击杀结束，退出界面');
+            return;
+                
         }
 
         //地域鬼王， 分享

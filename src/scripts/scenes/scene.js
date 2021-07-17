@@ -97,9 +97,20 @@ export class Scene {
                 "desc": "",
                 "first": "#edcfcf",
                 "colors": [[43, 28, "#e680dd"], [16, -34, "#ee9dec"], [-10, 19, "#e69191"], [-10, 11, "#f1cfcf"], [8, 7, "#dc8795"], [12, 9, "#dc8787"], [-21, -16, "#fbc2d1"], [-14, -4, "#d1758a"], [19, -2, "#b94286"]]
+            },
+            "reconnect_continue_fight": {
+                "region":[622,313,672,445],
+                "desc":"闪退之后 继续战斗",
+                "first":"#cab49d",
+                "colors":[[1,2,"#36312b"],[4,5,"#cbb59e"],[32,6,"#cbb59e"],[39,2,"#2b2723"],[44,7,"#beaa94"],[47,8,"#292621"],[45,16,"#cab49e"],[87,7,"#cab49e"],[88,8,"#7f7264"],[89,9,"#2a2622"],[126,17,"#cbb59e"],[127,18,"#827466"],[128,19,"#272420"],[320,13,"#cbb59e"],[322,14,"#504840"],[325,16,"#766a5d"],[324,21,"#cbb59e"]]
             }
         };
         this.buttons = {
+            "continue_fight": {
+                center: [1112, 634],
+                offset: [50, 30],
+                desc: "继续战斗"
+            },
             "friend_switch": {
                 center: [203, 998],
                 offset: [50, 50],
@@ -246,19 +257,27 @@ export class Scene {
             },
             liaotu: () => {
                 if (state.switch.liaotu === false) return false;
-                let liaotu_clear = state.tupo.liao_clear;
-                if (liaotu_clear === true || liaotu_clear === false) {
-                    state.tupo.liao_clear = 0;
-                    return true;
-                }
-                let tmp_date = new Date(liaotu_clear);
-                tmp_date.setDate(tmp_date.getDate() + 1);
+                let tmp_date = new Date();
                 tmp_date.setHours(5);
-                if (tmp_date.getTime() < Date.now()) {
+                tmp_date.setMinutes(0);
+                tmp_date.setSeconds(0)
+                if (state.tupo.liao_clear < tmp_date.getTime()) {
                     return state.tupo.liao_cd < Date.now();
                 } else {
                     return false;
                 };
+            },
+            liaotu_start: () => {
+                if (state.switch.digui === false) return false;
+                let tmpTime = new Date();
+                tmpTime.setHours(5);
+                tmpTime.setMinutes(0);
+                tmpTime.setSeconds(0);
+                if(state.tupo.last_liao_start > tmpTime.getTime()) return false;
+                return Date.now() >= tmpTime.getTime();
+            },
+            liaotu_buy_buff: () => {
+                return state.tupo.buy_buff === false;
             },
             fengmo: () => {
                 if (state.switch.fengmo === false) return false;
@@ -296,10 +315,9 @@ export class Scene {
                 return state.friends.last_send_friend_point < tmpTime.getTime();
             },
             getBlackEgg: () => {
-                if (state.switch.fengmo === false) return false;
                 let tmpTime = new Date();
                 tmpTime.setHours(0);
-                tmpTime.setMinutes(5);
+                tmpTime.setMinutes(0);
                 tmpTime.setSeconds(0);
                 return state.global.last_get_free_blackegg < tmpTime.getTime();
             },
@@ -327,6 +345,16 @@ export class Scene {
                     }
                     return false;
                 }
+            },
+            yinjie: () => {
+                if (state.switch.yinjie === false) return false;
+                let tmpTime = new Date();
+                if(tmpTime.getDay() != 5 && tmpTime.getDay() != 6 && tmpTime.getDay() != 0) return false;
+                tmpTime.setHours(19);
+                tmpTime.setMinutes(20);
+                tmpTime.setSeconds(0);
+                if(state.global.last_kill_yinjie > tmpTime.getTime()) return false;
+                return Date.now() > tmpTime.getTime();
             }
         };
 
@@ -338,6 +366,10 @@ export class Scene {
     }
 
     execute() {
+        if(this.findColors('reconnect_continue_fight')) {
+            this.clickButton('continue_fight');
+            return;
+        }
         if (this.findColors('friend_list')) {
             this.clickButton('friend_switch');
             return;

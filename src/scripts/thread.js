@@ -14,13 +14,19 @@ export function startThread() {
             }
             //check game app is aliv
             if (currentPackage() != state.settings.packageName) {
-                state.temp.last_unknown = 0;
-                logger.warn('痒痒鼠崩溃了好像，5秒后重启...');
-                sleep(5000);
-                app.launchPackage(state.settings.packageName);
-                sleep(5000);
-                logger.warn('游戏重启结束');
-                continue;
+                if(scenes[0].timeTo('reconnect')) {
+                    state.temp.last_unknown = 0;
+                    logger.warn('游戏崩溃：痒痒鼠崩溃了，5秒后重启...');
+                    sleep(5000);
+                    app.launchPackage(state.settings.packageName);
+                    sleep(5000);
+                    logger.warn('游戏崩溃：游戏重启结束');
+                    continue;
+                }else{
+                    global.logger.info('游戏崩溃：非重连时间，5min后检查...');
+                    sleep(5*60*1000);
+                }
+                
             }
         
             //update screenshot and find out scene.

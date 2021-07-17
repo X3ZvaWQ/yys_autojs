@@ -127,6 +127,9 @@ export class Map extends Scene{
     }
 
     execute() {
+        if(this.timeTo('liaotu_buy_buff')) {
+            this.clickButton('map_return');
+        }
         if (this.clickIfColorsExist('tansuo_award')) {
             global.logger.info('地图：发现探索宝箱，点之');
         };

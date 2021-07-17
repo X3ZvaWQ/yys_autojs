@@ -9,7 +9,8 @@ export class TuPo extends Scene {
             'tupo_fight_confirm',
             'tupo_fight_confirm_2',
             'tupo_geren_refresh_confirm',
-            'tupo_liao_interface'
+            'tupo_liao_interface',
+            'tupo_liao_target_select'
         ];
         this.colors = {
             "tupo_geren_interface": {
@@ -29,6 +30,12 @@ export class TuPo extends Scene {
                 "desc": "寮突破，会长未选择阴阳寮",
                 "first": "#b3b3b3",
                 "colors": [[-4, -5, "#050505"], [-8, -24, "#9b9b9b"], [-8, -7, "#bababa"], [-12, -9, "#020202"], [-20, -5, "#cacaca"], [-18, 4, "#393939"]]
+            },
+            "tupo_liao_close_2": {
+                "region":[814,214,477,455],
+                "desc":"",
+                "first":"#f2f2f2",
+                "colors":[[-2,-8,"#101010"],[-11,-11,"#e0e0e0"],[-10,-10,"#fbfbfb"],[-30,7,"#606060"],[-28,9,"#575757"],[-24,12,"#7e7e7e"],[-24,17,"#545454"],[-30,19,"#191919"]]
             },
             "tupo_medal_0": {
                 "region": [16, 46, 1893, 1004],
@@ -101,11 +108,23 @@ export class TuPo extends Scene {
                 "first": "#f7f2df",
                 "colors": [[2, -8, "#3d1a0f"], [-5, -10, "#ede8d6"], [-7, -23, "#cc501e"], [-48, -17, "#efab45"], [-48, -10, "#ffb42e"], [-60, -16, "#f79c38"], [-57, -8, "#fa992d"], [-72, -17, "#ef9a45"], [-70, -9, "#fc8f28"], [-83, -17, "#ef8934"]]
             },
+            "tupo_geren_damo_3_gua": {
+                "region":[357,838,849,125],
+                "desc":"",
+                "first":"#73a640",
+                "colors":[[3,0,"#3e710b"],[-2,-7,"#79aa3e"],[-3,0,"#3c6f09"],[-521,4,"#c41a1a"],[-525,7,"#ce7935"],[-530,5,"#fbc762"],[-532,10,"#ffb32e"],[-530,14,"#feb92f"]]
+            },
             "tupo_liao_last": {
                 "region": [1660, 867, 101, 102],
                 "desc": "寮突破，翻到底了的判断",
                 "first": "#b27f5d",
                 "colors": [[3, -2, "#b2895d"]]
+            },
+            "tupo_liao_last_2": {
+                "region":[1655,869,118,121],
+                "desc":"",
+                "first":"#4c3221",
+                "colors":[[1,0,"#855e3f"],[2,0,"#b7845a"],[2,3,"#b4815f"],[4,7,"#4c2f1e"],[7,9,"#4d2a19"]]
             },
             "tupo_liao_boom": {
                 "region": [411, 502, 154, 118],
@@ -136,6 +155,18 @@ export class TuPo extends Scene {
                 "desc": "",
                 "first": "#ede8d5",
                 "colors": [[1, -1, "#a19a8b"], [6, -2, "#867e70"], [7, -1, "#bdb6a6"], [6, 8, "#e8e2d0"], [3, 8, "#979081"], [-2, 17, "#e0dac9"], [2, 17, "#787063"], [17, 1, "#d7d2c0"], [21, 1, "#8c8577"], [22, 6, "#817a6c"], [21, 12, "#d0cab9"], [20, 15, "#efe9d7"], [18, 17, "#aaa394"], [25, 6, "#71695c"], [26, -1, "#5e564a"]]
+            },
+            "tupo_liao_target_select": {
+                "region":[1593,31,299,336],
+                "desc":"选择寮突破目标的界面",
+                "first":"#cbb69f",
+                "colors":[[1,1,"#a99680"],[3,3,"#957e6b"],[9,22,"#d6bfa8"],[14,22,"#c3ae93"],[16,26,"#fff9ee"],[22,23,"#a08678"],[28,17,"#c6ab8f"],[29,-2,"#c1a694"],[31,-4,"#ecd6ce"],[54,-1,"#dbcbbc"],[58,1,"#3c3833"],[60,4,"#dacbbb"],[60,5,"#988d82"],[60,6,"#3d3933"]]
+            },
+            "tupo_liao_start": {
+                "region":[79,86,1761,939],
+                "desc":"aa",
+                "first":"#f4b25f",
+                "colors":[[-24,6,"#f4b25f"],[-110,-25,"#f4b25f"],[-116,2,"#f4b25f"],[-110,28,"#f4b25f"],[3,33,"#f4b25f"],[118,30,"#f4b25f"],[121,-2,"#f4b25f"],[118,-24,"#f4b25f"]]
             }
         };
         this.buttons = {
@@ -159,6 +190,11 @@ export class TuPo extends Scene {
                 "offset": [20, 20],
                 "desc": "显示寮突cd"
             },
+            "tupo_liao_start": {
+                "center": [956, 901],
+                "offset": [100, 20],
+                "desc": "寮突 选择阴阳寮"
+            },
             "tupo_geren_refresh": {
                 "center": [1576, 896],
                 "offset": [100, 30],
@@ -174,6 +210,16 @@ export class TuPo extends Scene {
                 "offset": [200, 30],
                 "desc": "战斗结束的时候点屏幕继续。"
             },
+            "tupo_liao_target_select_first": {
+                "center": [1741, 240],
+                "offset": [50, 30],
+                "desc": "寮突目标选择：第一个"
+            },
+            "tupo_liao_target_select_return": {
+                "center": [87, 93],
+                "offset": [30, 30],
+                "desc": "退出"
+            }
         }
     }
 
@@ -186,7 +232,8 @@ export class TuPo extends Scene {
         for (let medal of fight_order) {
             if (this.clickIfColorsExist('tupo_medal_' + medal)) {
                 global.logger.info('个人突破：找到了 ' + medal + ' 勋章结界，挑战之');
-                state.tupo.geren_fight_clicked = false;
+                state.global.fighting = 'tupo_geren';
+                state.tupo.geren_fight_clicked_times += 1;
                 return true;
             };
         }
@@ -208,11 +255,12 @@ export class TuPo extends Scene {
         for (let medal of fight_order) {
             if (this.clickIfColorsExist('tupo_medal_' + medal)) {
                 global.logger.info('寮突破：找到了 ' + medal + ' 勋章结界，挑战之');
+                state.global.fighting = 'tupo_liao';
                 state.tupo.liao_fight_ed = true;
                 return true;
             };
         }
-        if (this.findColors('tupo_liao_last')) {
+        if (this.findColors('tupo_liao_last') || this.findColors('tupo_liao_last_2')) {
             if (state.tupo.liao_fight_ed) {
                 state.tupo.liao_clear = Date.now();
                 state.tupo.liao_fight_ed = true;
@@ -265,10 +313,12 @@ export class TuPo extends Scene {
                 this.clickButton('tupo_liao');
                 return;
             }
+            /* 没票直接退出 */
             if (this.getTupoTicket() == 0) {
                 this.exitOrToLiaoTupo();
                 return;
             }
+            /* 检查个人突破的等级，57的时候全打 59的时候只打三个 */
             if (this.findColors('geren_level_57')) {
                 global.logger.warn('个人突破：掉级到了57，切换到全打模式');
                 state.tupo.setting.geren_mode = 'all';
@@ -279,7 +329,7 @@ export class TuPo extends Scene {
             }
             if (state.tupo.setting.geren_mode == 'only3') {
                 //当个人突破是only3模式的时候检查有没有打三个
-                if (this.findColors('tupo_geren_damo_3') != null) {
+                if (this.findColors('tupo_geren_damo_3') != null || this.findColors('tupo_geren_damo_3_gua') != null) {
                     if (this.findTupoTarget()) {
                         //刷新不了，开始掉级
                         global.logger.info('个人突破：打够三个了，开始掉级');
@@ -319,33 +369,42 @@ export class TuPo extends Scene {
         }
 
         if (this.match_tag == 'tupo_fight_confirm' || this.match_tag == 'tupo_fight_confirm_2') {
-            if (state.tupo.geren_fight_clicked) {
+            if (state.tupo.geren_fight_clicked_times > 5) {
                 global.logger.info('突破：好像没突破券了欸');
-                state.tupo.geren_fight_clicked = false;
+                state.tupo.geren_fight_clicked_times = 0;
                 this.clickButton('fighting_victory_confirm');
+                sleep(random(400, 1000));
                 this.clickButton('tupo_exit');
                 return;
             }
             if (this.clickIfColorsExist('tupo_fight_confirm')) {
-                state.tupo.geren_fight_clicked = true;
-                state.global.fighting = 'tupo';
+                state.tupo.geren_fight_clicked_times += 1;
                 global.logger.info('突破：确认进攻结界');
                 return;
             };
             if (this.clickIfColorsExist('tupo_fight_confirm_2')) {
-                state.tupo.geren_fight_clicked = true;
-                state.global.fighting = 'tupo';
+                state.tupo.geren_fight_clicked_times += 1;
                 global.logger.info('突破：确认进攻结界');
                 return;
             };
         }
 
         if (this.match_tag == 'tupo_liao_interface') {
-            if (this.findColors('tupo_liao_close')) {
-                state.tupo.liao_cd = Date.now() + 30 * 60 * 1000;
-                logger.info('寮突还没开，半个小时后再来看看');
-                this.clickButton('tupo_geren');
-                return;
+            if (this.findColors('tupo_liao_close') || this.findColors('tupo_liao_close_2')) {
+                if(this.timeTo('liaotu_start')) {
+                    logger.info('突破：寮突还没开，尝试开启');
+                    this.clickButton('tupo_liao_start');
+                    sleep(random(2400, 3000));
+                    return;
+                }else{
+                    logger.info('突破：寮突还没开，半小时后再来看看');
+                    state.tupo.liao_cd = Date.now() + 30 * 60* 1000;
+                    this.clickButton('tupo_geren');
+                    return;
+                }
+            }
+            if(this.timeTo('liaotu_buy_buff')) {
+                this.clickButton('tupo_exit');
             }
             let liaotu_times = this.getLiaoTuTimes();
             if (liaotu_times > 0) {
@@ -371,6 +430,40 @@ export class TuPo extends Scene {
                     return;
                 }
             }
+        }
+
+        if(this.match_tag == 'tupo_liao_target_select'){
+            if(this.timeTo('liaotu_start')) {
+                let try_times = -1;
+                while(true){
+                    sleep(random(400, 600));
+                    try_times += 1;
+                    if(try_times > 4){
+                        break;
+                    }
+                    this.clickButton('tupo_liao_target_select_first');
+                    global.logger.info('突破：寮突，选择最高勋章的目标');
+                    sleep(random(2000, 2400));
+                    this.updateCapture();
+                    if(!this.clickIfColorsExist('tupo_liao_start')){
+                        global.logger.info('突破：找不到突入开始按钮！');
+                    }else{
+                        global.logger.info('突破：寮突，突入开始！');
+                        state.tupo.buy_buff = false;
+                        state.tupo.last_liao_start = Date.now();
+                        break;
+                    }
+                }
+            if(try_times > 4){
+                global.logger.info('突破：找不到突入开始按钮！流程结束');
+                state.tupo.last_liao_start = Date.now();
+                this.clickButton('tupo_liao_target_select_return');
+                return;
+            }
+            }else{
+                this.clickButton('tupo_liao_target_select_return');
+            }
+            
         }
     }
 }

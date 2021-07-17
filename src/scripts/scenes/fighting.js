@@ -153,7 +153,7 @@ export class Fighting extends Scene {
                 }
             }
             //突破掉级
-            if (state.global.fighting == 'tupo' && state.tupo.geren_demotion) {
+            if (state.global.fighting == 'tupo_geren' && state.tupo.geren_demotion) {
                 this.clickButton('fighting_prepare_exit');
                 state.tupo.geren_fight_clicked = false;
                 state.tupo.geren_demotion = false;

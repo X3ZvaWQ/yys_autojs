@@ -11,7 +11,6 @@ import { TuPo } from './tupo';
 import { Fighting } from './fighting';
 import { Fought } from './fought';
 import { TanSuo } from './tansuo';
-import { JieJie } from './jiejie';
 import { XianShi } from './xianshi';
 import { Disconnection } from './disconnection';
 import { Store } from './store';
@@ -20,9 +19,9 @@ import { FengMo } from './fengmo';
 import { Friend } from './friend';
 import { HD_TMGL_END } from './hd_tmgy_end';
 import { Team } from './team';
+import { Onmyoryou } from './onmyoryou';
 
 const scenes = [
-    new HD_TMGL_END(),
     new Team(),
     new Award(),
     new Activity(),
@@ -33,7 +32,7 @@ const scenes = [
     new Fighting(),
     new Friend(),
     new Fought(),
-    new JieJie(),
+    new Onmyoryou(),
     new TanSuo(),
     new DingHao(),
     new Home(),

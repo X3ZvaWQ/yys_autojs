@@ -125,6 +125,10 @@ export class Team extends Scene {
         }
 
         if(this.match_tag == 'team_waiting') {
+            if(state.team.fighting) {
+                this.clickButton('team_wait_go');
+                state.team.fighting = '';
+            }
             if(state.team.role != 'leader') {
                 return;
             }

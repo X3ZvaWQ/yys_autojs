@@ -120,6 +120,9 @@ export class Home extends Scene {
             this.goToHuoDong();
             return;
         }
+        if(this.timeTo('liaotu_buy_buff')) {
+            this.clickButton('home_onmyoryou');
+        }
         if (this.clickIfColorsExist('free_sushi')){
             global.logger.info('庭院：领取庭院免费体力*20');
             return;
@@ -145,6 +148,11 @@ export class Home extends Scene {
         if (this.timeTo('jiyang') || this.timeTo('liaotili')) {
             this.clickButton('home_onmyoryou');
             global.logger.info('庭院：进入阴阳寮准备新一轮寄养/领取体力补给');
+            return;
+        }
+        if(this.timeTo('yinjie')) {
+            global.logger.info('庭院：准备打阴界之门');
+            this.clickButton('home_onmyoryou');
             return;
         }
         if (this.timeTo('getBlackEgg')) {
