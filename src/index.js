@@ -4,7 +4,7 @@ import { MyAutomator } from './modules/automator';
 import { Ocr } from './modules/ocr';
 import { startThread } from './scripts/thread';
 
-let url = 'ws://192.168.1.230:8988'
+let url = 'ws://10.0.2.2:8988'
 global.ws = new WebsocketClient(url);
 global.logger = new Logger(ws);
 global.ocr = new Ocr(ws);

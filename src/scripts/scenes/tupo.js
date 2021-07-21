@@ -281,7 +281,7 @@ export class TuPo extends Scene {
 
     getTupoTicket() {
         global.logger.verbose('检查当前突破券数量');
-        let img = images.clip(this.screenshot, 1556, 31, 120, 41);
+        let img = images.clip(this.screenshot, 1717, 28, 131, 39);
         global.logger.verbose('尝试ocr读取突破券数量');
         let number = global.ocr.recognize(img).replace(/(\d+)\/30/, '$1');
         global.logger.verbose('收到服务器ocr响应结束，结果是:' + number);

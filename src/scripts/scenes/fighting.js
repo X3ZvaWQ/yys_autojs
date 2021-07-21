@@ -155,14 +155,14 @@ export class Fighting extends Scene {
             //突破掉级
             if (state.global.fighting == 'tupo_geren' && state.tupo.geren_demotion) {
                 this.clickButton('fighting_prepare_exit');
-                state.tupo.geren_fight_clicked = false;
+                state.tupo.geren_fight_clicked_times = 0;
                 state.tupo.geren_demotion = false;
                 global.logger.info('战斗准备：突破掉级，尝试直接退出战斗');
                 return;
             }
             //防止错判没突破券
-            if (state.global.fighting == 'tupo' && state.tupo.geren_fight_clicked) {
-                state.tupo.geren_fight_clicked = false;
+            if (state.global.fighting == 'tupo_geren' || state.global.fighting == 'tupo_liao') {
+                state.tupo.geren_fight_clicked_times = 0;
             }
             this.clickButton('fighting_prepare');
             sleep(500);
